@@ -9,8 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -22,13 +24,19 @@ import cc.siriuscloud.xiaoy.R;
 
 public class AddTaskFragment extends Fragment {
 
-//
-//    private TimePicker startTimePicker;
-//    private TimePicker endTimePicker;
 
+    private LinearLayout startTimeLayout;
 
-
+    private TextView startDateTxt;
     private TextView startTimeTxt;
+
+
+    private LinearLayout endTimeLayout;
+
+    private TextView endDateTxt;
+    private TextView endTimeTxt;
+
+
 
     public AddTaskFragment() {
         // Required empty public constructor
@@ -45,50 +53,49 @@ public class AddTaskFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-//        startTimePicker=getActivity().findViewById(R.id.start_time_picker);
-//		startTimePicker.setIs24HourView(true);
-//
-//        endTimePicker=getActivity().findViewById(R.id.end_time_picker);
-//        endTimePicker.setIs24HourView(true);
 
+        startTimeLayout=getActivity().findViewById(R.id.start_time_layout);
 
+        startDateTxt=getActivity().findViewById(R.id.start_date_txt);
         startTimeTxt=getActivity().findViewById(R.id.start_time_txt);
 
-
-
-        final StringBuffer time = new StringBuffer();
-        final Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-        int hour = calendar.get(Calendar.HOUR_OF_DAY);
-        int minute = calendar.get(Calendar.MINUTE);
-        //实例化TimePickerDialog对象
-        final TimePickerDialog timePickerDialog = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
-            //选择完时间后会调用该回调函数
+        startTimeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                time.append(" "  + hourOfDay + ":" + minute);
-                //设置TextView显示最终选择的时间
-                startTimeTxt.setText(time);
-            }
-        }, hour, minute, true);
+            public void onClick(View v) {
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
-            //选择完日期后会调用该回调函数
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                //因为monthOfYear会比实际月份少一月所以这边要加1
-                time.append(year + "-" + (monthOfYear+1) + "-" + dayOfMonth);
-                //选择完日期后弹出选择时间对话框
-                timePickerDialog.show();
-            }
-        }, year, month, day);
-        //弹出选择日期对话框
-        datePickerDialog.show();
+                //实例化对象
+                DatePickerFragment datePickerFragment = new DatePickerFragment();
 
+                datePickerFragment.setDataCallBack(new DatePickerFragment.DataCallBack() {
+
+                    @Override
+                    public void call(int year, int month, int day, int hour, int minute) {
+
+                        Toast.makeText(getActivity(),year+":"+month+":"+day+" "+hour+":"+minute,Toast.LENGTH_SHORT).show();
+
+                        //TODO 日期格式化
+
+                        startDateTxt.setText(year+"年"+month+"");
+
+                    }
+                });
+
+                //调用show方法弹出对话框
+                // 第一个参数为FragmentManager对象
+                // 第二个为调用该方法的fragment的标签
+                datePickerFragment.show(getFragmentManager(), "date_picker");
+
+            }
+        });
+
+
+
+
+        endTimeLayout=getActivity().findViewById(R.id.end_time_layout);
 
     }
+
+
 
 
 }
