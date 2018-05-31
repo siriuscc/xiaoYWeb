@@ -1,4 +1,4 @@
-package cc.siriusing.xiaoy;
+package cc.siriuscloud.xiaoy;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

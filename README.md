@@ -23,8 +23,15 @@ xiaoY 个人助理
 底部菜单用
 
 BottomNavigationBar
+mBottomNavigationBar.setMode(BottomNavigationBar.MODE_FIXED);
 
 
+
+
+
+底部菜单用Fragment
+
+### 数据库的表有问题，都没有外键，重新映射一遍
 
 
 
