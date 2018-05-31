@@ -13,16 +13,19 @@ import java.util.Calendar;
  * 日期选择器
  */
 public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener{
-    private String date;
+
+
     private TimePickerFragment timePicker = new TimePickerFragment();
 
+
+    private Calendar calendar=Calendar.getInstance();
 
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         //得到Calendar类实例，用于获取当前时间
-        Calendar calendar = Calendar.getInstance();
+
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -35,7 +38,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
     //将回调逻辑注入时间选择器
     public void setDataCallBack(DatePickerFragment.DataCallBack dataCallBack) {
 
-        this.timePicker.setDataCallBack(dataCallBack);
+//        this.timePicker.setDataCallBack(dataCallBack);
     }
 
 
@@ -49,6 +52,17 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 
         timePicker.initData(year,monthOfYear+1,dayOfMonth);
 
+        timePicker.setTimeCallBack(new TimePickerFragment.TimeCallBack() {
+            @Override
+            public void call(int hour, int min) {
+                //TODO
+
+
+
+            }
+        });
+
+
         timePicker.show(getFragmentManager(), "time_picker");
 
     }
@@ -56,6 +70,10 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 
     public interface DataCallBack {
         void call(int year,int month,int day,int hour, int minute);
+    }
+
+    public Calendar getCalendar() {
+        return calendar;
     }
 }
 

@@ -4,6 +4,11 @@
 
     <!-- To access Google+ APIs: -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <!--广播接收者开机启动-->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <!--网络状态获取-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
 
     <application
         android:allowBackup="true"
@@ -19,6 +24,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <receiver
+            android:name=".broadcast.AlarmReceiver"
+            android:enabled="true"
+            android:exported="true">
+
+            <!--过滤一下广播-->
+            <intent-filter>
+                <action android:name="cc.siriuscloud.broadcast.ALARM_BROADCAST"></action>
+            </intent-filter>
+
+        </receiver>
     </application>
 
 </manifest>
