@@ -1,24 +1,8 @@
 package cc.siriuscloud.xiaoy.domain;
 
-
-import java.sql.Date;
+import java.util.Date;
 
 public class Task {
-
-
-    public Task() {
-    }
-
-    public Task(Integer taskId, String title, Date startTime, Date endTime, String imgUrl, Integer userId, String content) {
-        this.taskId = taskId;
-        this.title = title;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.imgUrl = imgUrl;
-        this.userId = userId;
-        this.content = content;
-    }
-
     private Integer taskId;
 
     private String title;
@@ -27,11 +11,27 @@ public class Task {
 
     private Date endTime;
 
+    private Integer delayMin;
+
     private String imgUrl;
 
     private Integer userId;
 
     private String content;
+
+    public Task() {
+    }
+
+    public Task(Integer taskId, String title, Date startTime, Date endTime, Integer delayMin, String imgUrl, Integer userId, String content) {
+        this.taskId = taskId;
+        this.title = title;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.delayMin = delayMin;
+        this.imgUrl = imgUrl;
+        this.userId = userId;
+        this.content = content;
+    }
 
     public Integer getTaskId() {
         return taskId;
@@ -65,6 +65,14 @@ public class Task {
         this.endTime = endTime;
     }
 
+    public Integer getDelayMin() {
+        return delayMin;
+    }
+
+    public void setDelayMin(Integer delayMin) {
+        this.delayMin = delayMin;
+    }
+
     public String getImgUrl() {
         return imgUrl;
     }
@@ -87,5 +95,19 @@ public class Task {
 
     public void setContent(String content) {
         this.content = content == null ? null : content.trim();
+    }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "taskId=" + taskId +
+                ", title='" + title + '\'' +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", delayMin=" + delayMin +
+                ", imgUrl='" + imgUrl + '\'' +
+                ", userId=" + userId +
+                ", content='" + content + '\'' +
+                '}';
     }
 }

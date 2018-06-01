@@ -18,20 +18,38 @@ xiaoY 个人助理
 
 ## 开发
 
-####功能布局
-
-底部菜单用
-
-BottomNavigationBar
-mBottomNavigationBar.setMode(BottomNavigationBar.MODE_FIXED);
 
 
+登录
+
+注册
+
+个人资料展示
+
+修改密码
 
 
 
-底部菜单用Fragment
+添加任务
 
-### 数据库的表有问题，都没有外键，重新映射一遍
+删除任务
+
+修改任务
+
+所有任务
+
+
+
+
+添加笔记
+
+删除笔记
+
+
+
+
+
+
 
 
 

@@ -89,10 +89,10 @@ public class TodayFragment extends Fragment {
     private ArrayList<Task> initTasks() {
 
         ArrayList<Task> tasks = new ArrayList<>();
-        tasks.add(new Task(0,"软件工程作业",new Date(2018,05,30),new Date(2018,05,30),null,1,null));
-        tasks.add(new Task(1,"软件工程作业",new Date(2018,05,30),new Date(2018,05,31),null,1,null));
-        tasks.add(new Task(2,"软件工程作业",new Date(2018,05,30),new Date(2018,05,31),null,1,null));
-        tasks.add(new Task(3,"软件工程作业",new Date(2018,05,30),new Date(2018,05,31),null,1,null));
+        tasks.add(new Task(0,"软件工程作业",new Date(2018,05,30),new Date(2018,05,30),0,null,1,null));
+        tasks.add(new Task(1,"软件工程作业",new Date(2018,05,30),new Date(2018,05,31),0,null,1,null));
+        tasks.add(new Task(2,"软件工程作业",new Date(2018,05,30),new Date(2018,05,31),0,null,1,null));
+        tasks.add(new Task(3,"软件工程作业",new Date(2018,05,30),new Date(2018,05,31),0,null,1,null));
         return tasks;
     }
 

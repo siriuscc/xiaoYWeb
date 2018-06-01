@@ -17,6 +17,8 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 
     private TimePickerFragment timePicker = new TimePickerFragment();
 
+    private DataCallBack dataCallBack;
+
 
     private Calendar calendar=Calendar.getInstance();
 
@@ -38,13 +40,13 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
     //将回调逻辑注入时间选择器
     public void setDataCallBack(DatePickerFragment.DataCallBack dataCallBack) {
 
-//        this.timePicker.setDataCallBack(dataCallBack);
+        this.dataCallBack=dataCallBack;
     }
 
 
     //返回时间窗口
     @Override
-    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+    public void onDateSet(DatePicker view,final int year, final int monthOfYear, final int dayOfMonth) {
 
         //将日期的Picker 和时间和Picker耦合在一起
         //使用的时候只需直接调用DatePickerFragment的show()方法
@@ -52,12 +54,14 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 
         timePicker.initData(year,monthOfYear+1,dayOfMonth);
 
+        //选择时间后调用
         timePicker.setTimeCallBack(new TimePickerFragment.TimeCallBack() {
             @Override
             public void call(int hour, int min) {
-                //TODO
 
-
+                DatePickerFragment.this.calendar.set(year,monthOfYear,dayOfMonth,hour,min);
+                //时间选择完毕后调用
+                DatePickerFragment.this.dataCallBack.call(DatePickerFragment.this.calendar,year,monthOfYear,dayOfMonth,hour,min);
 
             }
         });
@@ -69,7 +73,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 
 
     public interface DataCallBack {
-        void call(int year,int month,int day,int hour, int minute);
+        void call(Calendar calendar,int year,int month,int day,int hour, int minute);
     }
 
     public Calendar getCalendar() {

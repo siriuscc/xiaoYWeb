@@ -6,15 +6,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.jaredrummler.materialspinner.MaterialSpinner;
@@ -24,33 +24,43 @@ import java.util.LinkedHashMap;
 
 import cc.siriuscloud.xiaoy.R;
 import cc.siriuscloud.xiaoy.broadcast.AlarmReceiver;
+import cc.siriuscloud.xiaoy.dao.TaskDao;
+import cc.siriuscloud.xiaoy.domain.Task;
 
 
 public class AddTaskFragment extends Fragment {
 
 
     private static final String TAG = "AddTaskFragment";
-
-
-    private Calendar startCalendar;
-
-
     private final LinkedHashMap<String, Integer> remindMap = new LinkedHashMap<>();
 
-    private LinearLayout startTimeLayout;
 
-    private TextView startDateTxt;
-    private TextView startTimeTxt;
-
-
-    private LinearLayout endTimeLayout;
-
-    private TextView endDateTxt;
-    private TextView endTimeTxt;
+    private Calendar startCalendar=Calendar.getInstance();         // 开始时间
+    private Calendar endCalendar=Calendar.getInstance();           //结束时间
 
 
-    private MaterialSpinner remindSpinner;
+    private LinearLayout startTimeLayout;       // 开始时间点的布局
+    private TextView startDateTxt;              //开始日期
+    private TextView startTimeTxt;              //开始时间
 
+
+    private LinearLayout endTimeLayout;         //结束时间点布局
+    private TextView endDateTxt;                //结束日期
+    private TextView endTimeTxt;                //结束时间
+
+
+
+    private EditText contentEdit;                   //内容
+    private EditText titleEdit;                     //标题
+
+
+    private MaterialSpinner remindSpinner;      //下拉刷新组件
+
+
+    private Button submitTaskBtn;                   //提交按钮
+
+
+    private Integer delayMin;
 
     public AddTaskFragment() {
         // Required empty public constructor
@@ -75,24 +85,92 @@ public class AddTaskFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        initPicker();
 
-        //开始时间选择器 绑定
+        contentEdit=getActivity().findViewById(R.id.content_edit);
+        titleEdit=getActivity().findViewById(R.id.title_edit);
+
+        //提醒时间 绑定逻辑
+        remindSpinner = getActivity().findViewById(R.id.remind_spinner);
+        remindSpinner.setItems(remindMap.keySet().toArray());
+        remindSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
+
+
+                //获取延时时间
+                AddTaskFragment.this.delayMin = remindMap.values().
+                        toArray(new Integer[remindMap.size()])[position];
+
+                //设置到全局
+                //remindTime> 0 表示之后提示
+                if (null == delayMin || startCalendar == null || delayMin > 0) {
+                    Log.d(TAG, ".........空指针");
+                    delayMin =null;
+                    return;
+                }
+            }
+        });
+
+
+        submitTaskBtn=getActivity().findViewById(R.id.submit_task_btn);
+
+        //提交按钮
+        submitTaskBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Task task = extractTask();
+
+                TaskDao taskDao=new TaskDao();
+                int count=taskDao.addTaskDao(task);
+
+            }
+        });
+
+    }
+
+    private Task extractTask() {
+
+        Task task=new Task();
+
+        task.setStartTime(this.startCalendar.getTime());
+        task.setEndTime(this.endCalendar.getTime());
+        task.setContent(this.contentEdit.getText().toString());
+        task.setTitle(this.titleEdit.getText().toString());
+
+        if(null == this.delayMin){
+            this.delayMin=0;
+        }
+        task.setDelayMin(this.delayMin);
+
+        Log.d(TAG,task+"");
+
+        return task;
+
+    }
+
+
+    /**
+     * 初始化时间选择器组件绑定
+     * 初始化组件回调方法
+     */
+    private void initPicker(){
+
+        //开始时间选择器 绑定 逻辑
         startTimeLayout = getActivity().findViewById(R.id.start_time_layout);
-
         startDateTxt = getActivity().findViewById(R.id.start_date_txt);
         startTimeTxt = getActivity().findViewById(R.id.start_time_txt);
-
         startTimeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 //实例化对象
                 DatePickerFragment datePickerFragment = new DatePickerFragment();
-
                 datePickerFragment.setDataCallBack(new DatePickerFragment.DataCallBack() {
 
                     @Override
-                    public void call(int year, int month, int day, int hour, int minute) {
+                    public void call(Calendar calendar, int year, int month, int day, int hour, int minute) {
 
                         String dateString = String.format("%04d年%02d月%02d日", year, month, day);
                         String timeString = String.format("%02d:%02d", hour, minute);
@@ -116,13 +194,10 @@ public class AddTaskFragment extends Fragment {
         });
 
 
-        //结束时间选择器绑定
+        //结束时间选择器绑定 逻辑
         endTimeLayout = getActivity().findViewById(R.id.end_time_layout);
-
         endDateTxt = getActivity().findViewById(R.id.end_date_txt);
         endTimeTxt = getActivity().findViewById(R.id.end_time_txt);
-
-
         endTimeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,10 +208,13 @@ public class AddTaskFragment extends Fragment {
                 datePickerFragment.setDataCallBack(new DatePickerFragment.DataCallBack() {
 
                     @Override
-                    public void call(int year, int month, int day, int hour, int minute) {
+                    public void call(Calendar calendar, int year, int month, int day, int hour, int minute) {
 
                         String dateString = String.format("%04d年%02d月%02d日", year, month, day);
                         String timeString = String.format("%02d:%02d", hour, minute);
+
+                        endCalendar = Calendar.getInstance();
+                        endCalendar.set(year, month, day, hour, minute);
 
                         endDateTxt.setText(dateString);
                         endTimeTxt.setText(timeString);
@@ -147,45 +225,19 @@ public class AddTaskFragment extends Fragment {
                 // 第一个参数为FragmentManager对象
                 // 第二个为调用该方法的fragment的标签
                 datePickerFragment.show(getFragmentManager(), "date_picker");
-
-            }
-        });
-
-
-        remindSpinner = getActivity().findViewById(R.id.remind_spinner);
-
-
-        remindSpinner.setItems(remindMap.keySet().toArray());
-
-        remindSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
-
-
-                Integer remindMin =
-                        remindMap.values().toArray(new Integer[remindMap.size()])[position];
-
-
-                //remindTime> 0 表示之后提示
-                if (null == remindMin || startCalendar == null || remindMin > 0) {
-                    Log.d(TAG, ".........空指针");
-                    return;
-                }
-
-                addAlarm(remindMin);
-
-
             }
         });
 
     }
+
+
 
     /**
      * 添加一个闹钟，到点自动发送广播 #{AlarmReceiver.ALARM_RECEIVER_URI}
      *
      * @param remindMin 表示提前多少分钟通知，小于0
      */
-    private void addAlarm(int remindMin){
+    private void addAlarm(int remindMin) {
 
         //提前通知
 
@@ -207,22 +259,6 @@ public class AddTaskFragment extends Fragment {
     }
 
 
-
-
-    public void showDialog(Context context) {
-        final BottomSheetDialog dialog = new BottomSheetDialog(context);
-        View dialogView = LayoutInflater.from(context)
-                .inflate(R.layout.layout_remind, null);
-
-        ListView listView = (ListView) dialogView.findViewById(R.id.remind_list_view);
-        String[] array = new String[]{"item-1", "item-2", "item-3", "item-4", "item-5", "item-6", "item-7", "item-8", "item-9"};
-        ArrayAdapter adapter = new ArrayAdapter(context, android.R.layout.simple_list_item_1, array);
-        listView.setAdapter(adapter);
-
-        dialog.setContentView(dialogView);
-        dialog.show();
-
-    }
 
 
 }

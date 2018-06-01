@@ -2,13 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cc.siriuscloud.xiaoy">
 
-    <!-- To access Google+ APIs: -->
+    <!-- 网络权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <!--广播接收者开机启动-->
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-    <!--网络状态获取-->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-
+    <!-- 广播接收者开机启动 -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <!-- 网络状态获取 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -30,12 +29,22 @@
             android:enabled="true"
             android:exported="true">
 
-            <!--过滤一下广播-->
+            <!-- 过滤一下广播 -->
             <intent-filter>
-                <action android:name="cc.siriuscloud.broadcast.ALARM_BROADCAST"></action>
+                <action android:name="cc.siriuscloud.broadcast.ALARM_BROADCAST" />
             </intent-filter>
-
         </receiver>
+
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
