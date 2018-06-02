@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import cc.siriuscloud.xiaoy.R;
+import cc.siriuscloud.xiaoy.dao.DaoCallBack;
+import cc.siriuscloud.xiaoy.dao.TaskDao;
 
 public class TaskFragment extends Fragment {
 
@@ -49,6 +51,34 @@ public class TaskFragment extends Fragment {
         if (getArguments() != null) {
             taskId = getArguments().getInt(TASKID);
         }
+
+        //获取数据
+
+
+        TaskDao taskDao=new TaskDao(new DaoCallBack() {
+            @Override
+            public void onSuccess(int status, String msg, Object data) {
+
+            }
+
+            @Override
+            public void onError(int status, String msg, Object data) {
+
+            }
+        });
+
+
+        taskDao.findTodayTask();
+
+
+
+
+
+
+
+
+
+
     }
 
     @Override

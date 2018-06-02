@@ -13,49 +13,49 @@ import okhttp3.Request;
 
 public class HttpUtil {
 
+
     private static final String TAG = HttpUtil.class.getSimpleName();
 
-    public static void sendHttpRequest(String url, FormBody formBody,okhttp3.Callback callback){
+    public static void sendHttpRequest(String url, FormBody formBody, okhttp3.Callback callback) {
 
 
         //需要一个能把Domain 映射到请求参数的工具类
+        OkHttpClient client = new OkHttpClient();
 
-        OkHttpClient client=new OkHttpClient();
-
-
-        Request request=new Request.Builder().post(formBody).url(url).build();
+        Request request = new Request.Builder().post(formBody).url(url).build();
 
         client.newCall(request).enqueue(callback);
 
     }
 
-
-    public static FormBody mappingFormBody(Object obj){
-
+    /**
+     * 映射domain到FormBody
+     * @param obj
+     * @return
+     */
+    public static FormBody mappingFormBody(Object obj) {
 
         FormBody.Builder builder = new FormBody.Builder();
-
 
         //开了这个就可以访问
         Field[] declaredFields = obj.getClass().getDeclaredFields();
 
-        List<Object> list=new ArrayList<>();
+        List<Object> list = new ArrayList<>();
 
         //允许访问private属性
-        Field.setAccessible(declaredFields,true);
+        Field.setAccessible(declaredFields, true);
         try {
-            for(Field field:declaredFields){
+            for (Field field : declaredFields) {
 
                 String key = field.getName();
                 Object value = field.get(obj);
 
                 String format = DataFormat.format(value);
 
+                if (key != null && value != null) {
+                    builder.add(key, format);
 
-                Log.d(TAG,"............"+key+"..........."+value+".........");
-
-                if(key!=null&&value!=null){
-                    builder.add(key,format);
+                    Log.d(TAG,"............"+key+".........."+format);
                 }
 
             }
@@ -66,14 +66,11 @@ public class HttpUtil {
 
             e.printStackTrace();
         }
-        FormBody formBody=builder
-                .add("goodsId","2799")
-                .build();
+        FormBody formBody = builder.build();
 
         return formBody;
 
     }
-
 
 
 }

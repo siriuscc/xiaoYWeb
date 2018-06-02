@@ -1,18 +1,20 @@
 package cc.siriuscloud.xiaoy;
 
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 
 import cc.siriuscloud.xiaoy.domain.User;
+import cc.siriuscloud.xiaoy.view.PersonalFragment;
 import cc.siriuscloud.xiaoy.view.TodayFragment;
 
 
@@ -36,10 +38,20 @@ public class MainActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_main);
 
 
+		//初始化全局数据
+        user=AppVessel.get("user");
+
+        if(null == user){
+            Toast.makeText(this,"用户信息错误，请重新登录",Toast.LENGTH_SHORT).show();
+
+            Intent intent=new Intent(this,LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
 		replaceFragment(new TodayFragment());
 
 
-//
         navBar=findViewById(R.id.bottom_nav_bar);
 //
 //
@@ -72,7 +84,9 @@ public class MainActivity extends AppCompatActivity {
 //                        replaceFragment(new TodayFragment());
                         break;
                     case 2:break;
-                    case 3:break;
+                    case 3:
+                        replaceFragment(new PersonalFragment());
+                        break;
 
                 }
 
@@ -100,13 +114,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void replaceFragment(Fragment fragment) {
 
-
         FragmentManager fragmentManager=getSupportFragmentManager();
         //开启事务
         FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
-
         fragmentTransaction.replace(R.id.main_frameLayout,fragment);
-
         fragmentTransaction.commit();
 
 	}
