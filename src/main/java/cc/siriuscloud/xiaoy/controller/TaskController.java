@@ -2,6 +2,7 @@ package cc.siriuscloud.xiaoy.controller;
 
 
 import cc.siriuscloud.xiaoy.domain.Task;
+import cc.siriuscloud.xiaoy.utils.Message;
 import cc.siriuscloud.xiaoy.utils.Msg;
 import cc.siriuscloud.xiaoy.service.TaskService;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -33,16 +34,15 @@ public class TaskController {
 
     @ResponseBody
     @RequestMapping("/addTask")
-    public Msg addTask(Task task,String startTime) {
+    public Message<Task> addTask(Task task, String startTime) {
 
-        logger.debug("startTime............" + startTime);
-
-        logger.debug("............" + task);
-        logger.debug("............" + task.getStartTime());
-
+//        logger.debug("startTime............" + startTime);
+//
+//        logger.debug("............" + task);
+//        logger.debug("............" + task.getStartTime());
 
         //插入task
-        Msg msg = new Msg();
+        Message<Task> msg = new Message<>();
 
         int count = taskService.addTask(task);
 
@@ -51,38 +51,38 @@ public class TaskController {
             msg.setStatus(Msg.STATUS_ERROR);
         }
 
-
         return msg;
     }
 
     @ResponseBody
     @RequestMapping("/removeTask")
-    public Msg removeTask(int taskId) {
-
+    public Message removeTask(int taskId) {
 
         int removeTaskById = taskService.removeTaskById(taskId);
 
-        return new Msg(removeTaskById);
+        if(removeTaskById>0){
+            return new Message(0);
+        }
+
+        return new Message(removeTaskById);
     }
 
 
     @ResponseBody
     @RequestMapping("/findTask")
-    public Msg findTask(int taskId) {
+    public Message<Task> findTask(int taskId) {
 
         Task task = taskService.findTaskById(taskId);
 
-
         return (null == task) ?
-                new Msg(Msg.MSG_ERROR, Msg.MSG_ERROR) :
-                new Msg(Msg.STATUS_SUCCESS, Msg.MSG_SUCCESS, task);
+                new Message<Task>(Message.STATUS_ERROR, Message.MSG_ERROR) :
+                new Message<Task>(Message.STATUS_SUCCESS, Message.MSG_SUCCESS, task);
     }
 
 
     @ResponseBody
     @RequestMapping("/updateTask")
     public Msg updateTask(Task task) {
-
 
         int count = taskService.updataTask(task);
 
@@ -95,15 +95,15 @@ public class TaskController {
 
     @ResponseBody
     @RequestMapping("/findAllTasks")
-    public Msg findAllTasks(int userId){
+    public Message<Task> findAllTasks(int userId){
 
         List<Task> tasks = taskService.findAllTasks(userId);
 
-        Msg msg = new Msg();
+        Message<Task> msg = new Message<>();
 
         if(null == tasks){
-            msg.setStatus(Msg.STATUS_ERROR);
-            msg.setMsg(Msg.MSG_ERROR);
+            msg.setStatus(Message.STATUS_ERROR);
+            msg.setMsg(Message.MSG_ERROR);
         }
 
         msg.setData(tasks);
@@ -112,13 +112,13 @@ public class TaskController {
 
     @ResponseBody
     @RequestMapping("/findTodayTasks")
-    public Msg findTodayTasks(int userId){
+    public Message<Task> findTodayTasks(int userId){
 
         List<Task> tasks = taskService.findTodayTasks(userId);
 
         logger.debug(".........."+tasks);
 
-        Msg msg = new Msg();
+        Message<Task> msg = new Message<>();
 
         if(null == tasks){
             msg.setStatus(Msg.STATUS_ERROR);

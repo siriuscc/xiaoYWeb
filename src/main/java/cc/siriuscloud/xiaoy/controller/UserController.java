@@ -1,6 +1,7 @@
 package cc.siriuscloud.xiaoy.controller;
 
 import cc.siriuscloud.xiaoy.domain.User;
+import cc.siriuscloud.xiaoy.utils.Message;
 import cc.siriuscloud.xiaoy.utils.Msg;
 import cc.siriuscloud.xiaoy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,17 +24,17 @@ public class UserController {
 
     @RequestMapping("login")
     @ResponseBody
-    public Object login(User user, HttpSession session) {
+    public Message<User> login(User user, HttpSession session) {
 
         User loginUser = userService.login(user);
-        Msg msg = new Msg();
+        Message<User> msg = new Message<>();
 
         if (null != loginUser) {
 
             session.setAttribute("user", loginUser);
             msg.setMsg("login");
 
-            msg.setData(loginUser);
+            msg.setItem(loginUser);
 
         } else {
             msg.setStatus(Msg.STATUS_ERROR);   //失败
