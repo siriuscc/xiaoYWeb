@@ -3,11 +3,21 @@ package cc.siriuscloud.xiaoy.utils;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
+import java.util.logging.SimpleFormatter;
 
 public class MyStringUtils {
 
-	
+	private static final String DATA_PATTERN="YYYY-MM-dd HH:mm:ss";
+
+	private static final String TIME_PATTERN="HH:mm";
+
+
+
 	public static String String2Md5(String value){
 		
 		
@@ -41,6 +51,27 @@ public class MyStringUtils {
 		return UUID.randomUUID().toString().replaceAll("-", "");
 		
 	}
+
+
+	public static String DateToDayTime(Date date){
+
+		DateFormat fmt =new SimpleDateFormat(TIME_PATTERN);
+
+		return fmt.format(date);
+	}
+
+
+    public static String DateToString(Date date){
+
+        DateFormat fmt =new SimpleDateFormat(DATA_PATTERN);
+
+        return fmt.format(date);
+    }
+
+
+
+
+
 	
 	public static void main(String[] args) {
 		

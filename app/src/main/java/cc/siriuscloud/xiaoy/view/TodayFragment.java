@@ -13,13 +13,16 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import cc.siriuscloud.xiaoy.AppVessel;
 import cc.siriuscloud.xiaoy.MainActivity;
 import cc.siriuscloud.xiaoy.R;
+import cc.siriuscloud.xiaoy.dao.DaoCallBack;
+import cc.siriuscloud.xiaoy.dao.TaskDao;
 import cc.siriuscloud.xiaoy.domain.Task;
+import cc.siriuscloud.xiaoy.domain.User;
 import cc.siriuscloud.xiaoy.viewconponent.TaskAdapter;
 
 
@@ -30,7 +33,8 @@ public class TodayFragment extends Fragment {
 
     //任务列表
     private ListView tasksView;
-    private List<Task> tasks;
+    private List<Task> tasks=new ArrayList<>();
+    private TaskAdapter taskAdapter;
 
     //拉动刷新
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -48,9 +52,9 @@ public class TodayFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         tasksView =this.getActivity().findViewById(R.id.tasks_layout);
-        tasks=initTasks();
+        initTasks();
 
-        TaskAdapter taskAdapter = new TaskAdapter(this.getActivity(), R.layout.task_item, tasks);
+        taskAdapter = new TaskAdapter(this.getActivity(), R.layout.task_item, tasks);
         tasksView.setAdapter(taskAdapter);
         tasksView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -85,15 +89,59 @@ public class TodayFragment extends Fragment {
     }
 
 
+    /**
+     * 请求数据，初始化tasks
+     */
+    private void initTasks() {
 
-    private ArrayList<Task> initTasks() {
+        User user=AppVessel.get("user");
 
-        ArrayList<Task> tasks = new ArrayList<>();
-        tasks.add(new Task(0,"软件工程作业",new Date(2018,05,30),new Date(2018,05,30),0,null,1,null));
-        tasks.add(new Task(1,"软件工程作业",new Date(2018,05,30),new Date(2018,05,31),0,null,1,null));
-        tasks.add(new Task(2,"软件工程作业",new Date(2018,05,30),new Date(2018,05,31),0,null,1,null));
-        tasks.add(new Task(3,"软件工程作业",new Date(2018,05,30),new Date(2018,05,31),0,null,1,null));
-        return tasks;
+        user.getUserId();
+
+        TaskDao taskDao = new TaskDao(new DaoCallBack<List<Task>>() {
+
+            @Override
+            public void onSuccess(int status, String msg, List<Task> data) {
+
+//                Log.d(TAG,".....data class............."+data.getClass().getName());
+
+                TodayFragment.this.tasks.clear();
+
+                TodayFragment.this.tasks.addAll(data);
+
+//
+//                for(Task task:data){
+////                    Log.d(TAG,"........task:"+task);
+//                }
+
+                ((MainActivity)getActivity()).runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        taskAdapter.notifyDataSetChanged();
+                    }
+                });
+
+
+//                Log.d(TAG,".....................tasks:"+tasks.size());
+
+            }
+
+            @Override
+            public void onError(int status, String msg, List<Task> data) {
+
+                ((MainActivity)getActivity()).runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getActivity(),"加载数据失败",Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            }
+        });
+
+        taskDao.findTodayTasks();
+
+
     }
 
 }

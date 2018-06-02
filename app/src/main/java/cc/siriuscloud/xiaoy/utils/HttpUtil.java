@@ -1,12 +1,8 @@
 package cc.siriuscloud.xiaoy.utils;
 
-import android.util.Log;
-
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -55,7 +51,6 @@ public class HttpUtil {
                 if (key != null && value != null) {
                     builder.add(key, format);
 
-                    Log.d(TAG,"............"+key+".........."+format);
                 }
 
             }

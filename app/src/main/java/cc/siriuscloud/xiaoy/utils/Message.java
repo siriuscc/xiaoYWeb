@@ -1,15 +1,17 @@
 package cc.siriuscloud.xiaoy.utils;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TimeZone;
 
 public class Message<T> implements Serializable {
 
@@ -18,14 +20,54 @@ public class Message<T> implements Serializable {
 
     public static final String MSG_ERROR = "error";
     public static final String MSG_SUCCESS = "success";
+    private static final String TAG = Message.class.getName();
 
 
     private int status = STATUS_SUCCESS;
     private String msg = null;
-    private T data = null;
+    private T item = null;
+    private List<T> data = null;
+    private Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+    ;
+
+    static {
+
+        TimeZone.setDefault(TimeZone.getTimeZone("GMT-8"));
+
+    }
+
+    public Message() {
+    }
 
 
-    private Message() {
+    public Message(int status) {
+
+        this.status = status;
+    }
+
+
+    public Message(String msg) {
+        this.msg = msg;
+    }
+
+
+    public Message(int status, String msg) {
+        this.msg = msg;
+        this.status = status;
+
+    }
+
+    public Message(int status, String msg, T item) {
+        this.status = status;
+        this.msg = msg;
+        this.item = item;
+    }
+
+
+    public Message(int status, String msg, List<T> data) {
+        this.status = status;
+        this.msg = msg;
+        this.data = data;
     }
 
 
@@ -33,51 +75,64 @@ public class Message<T> implements Serializable {
         return status;
     }
 
-    public void setStatus(int status) {
+    public Message<T> setStatus(int status) {
         this.status = status;
+
+        return this;
     }
 
     public String getMsg() {
         return msg;
     }
 
-    public void setMsg(String msg) {
+    public Message<T> setMsg(String msg) {
         this.msg = msg;
+        return this;
     }
 
-    public T getData() {
+    public List<T> getData() {
         return data;
     }
 
-    public void setData(T data) {
+    public Message<T> setData(List<T> data) {
         this.data = data;
+        return this;
     }
 
-    private Message jsonBuildInstance(String jsonString, Class<T> clazz) {
 
-        Message message = new Message();
+    public T getItem() {
+        return item;
+
+    }
+
+    public Message<T> setItem(T item) {
+        this.item = item;
+        return this;
+    }
+
+    public Message jsonBuildItem(String jsonString, Class<T> clazz) {
 
         try {
             JSONObject jsonObject = new JSONObject(jsonString);
             int status = jsonObject.getInt("status");
             String msg = jsonObject.getString("msg");
-            String objectString = jsonObject.getString("data");
 
-            Gson gson = new Gson();
-            T obj = gson.fromJson(objectString, clazz);
-            message.setData(obj);
-            return message;
+            if (jsonObject.has("item")) {
+
+                String objectString = jsonObject.getString("item");
+                T obj = gson.fromJson(objectString, clazz);
+                this.setItem(obj);
+            }
+
 
         } catch (JSONException e) {
             e.printStackTrace();
+        }finally {
+            return this;
         }
-        return null;
     }
 
-
-    private Message jsonBuildWithList(String jsonString) {
-
-        Message msg = new Message();
+    public Message<T> jsonBuildData(String jsonString, Class<T> clazz) {
 
         try {
             JSONObject jsonObject = new JSONObject(jsonString);
@@ -85,12 +140,19 @@ public class Message<T> implements Serializable {
             String message = jsonObject.getString("msg");
             String objectString = jsonObject.getString("data");
 
-            Type listType = new TypeToken<ArrayList<T>>() {
-            }.getType();
-            List<T> datalist = new Gson().fromJson(objectString, listType);
+            JSONArray dataArr = jsonObject.getJSONArray("data");
 
-            msg.setData(datalist);
-            return msg;
+            ArrayList<T> dataList = new ArrayList<T>();
+
+            for (int i = 0; i < dataArr.length(); ++i) {
+                String string = dataArr.getString(i);
+
+                T item = gson.fromJson(string, clazz);
+                dataList.add(item);
+            }
+
+            this.setData(dataList);
+            return this;
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -99,5 +161,13 @@ public class Message<T> implements Serializable {
         return null;
     }
 
-
+    @Override
+    public String toString() {
+        return "Message{" +
+                "status=" + status +
+                ", msg='" + msg + '\'' +
+                ", item=" + item +
+                ", data=" + data +
+                '}';
+    }
 }
