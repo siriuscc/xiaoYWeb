@@ -44,7 +44,6 @@
 	
 	<aop:config proxy-target-class="true">
 		<aop:advisor advice-ref="txAdvice" pointcut="within(cc.siriuscloud.xiaoy.service..*)"/>
-	
 	</aop:config>
 	
 

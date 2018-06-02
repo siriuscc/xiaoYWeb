@@ -37,18 +37,29 @@
 	<!-- 默认创建 mapper，adpter，配置adpter支持json
 		<mvc:annotation-driven></mvc:annotation-driven>	
 	 -->
-	 <mvc:annotation-driven>
+
+    <!--<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">-->
+        <!--<property name="converters">-->
+            <!--<set>-->
+                <!--<bean class="cc.siriuscloud.xiaoy.utils.DateConverter"></bean>-->
+
+            <!--</set>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+	 <mvc:annotation-driven conversion-service="conversionService">
 		 <mvc:message-converters register-defaults="true">
 		    <bean class="org.springframework.http.converter.StringHttpMessageConverter">
 			     <constructor-arg value="UTF-8" />
 		    </bean>
-		 </mvc:message-converters>
+             <!--<bean class="cc.siriuscloud.xiaoy.utils.DateConverter"/>-->
+
+         </mvc:message-converters>
 	</mvc:annotation-driven>
 
 
 	<!--
-	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"></bean>
-	 配置注解处理器适配器 
+	 配置注解处理器适配器
 			功能：调用controller方法，执行controller
 	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"></bean>
 	-->
