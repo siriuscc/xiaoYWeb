@@ -15,6 +15,7 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 
 import cc.siriuscloud.xiaoy.domain.User;
 import cc.siriuscloud.xiaoy.view.PersonalFragment;
+import cc.siriuscloud.xiaoy.view.PlanFragment;
 import cc.siriuscloud.xiaoy.view.TodayFragment;
 
 
@@ -51,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
 
 		replaceFragment(new TodayFragment());
 
-
         navBar=findViewById(R.id.bottom_nav_bar);
 //
 //
@@ -62,8 +62,7 @@ public class MainActivity extends AppCompatActivity {
         navBar.addItem(new BottomNavigationItem(R.drawable.switch_tip, "计划"));
         navBar.addItem(new BottomNavigationItem(R.drawable.zuji_tip, "足迹"));
         navBar.addItem(new BottomNavigationItem(R.drawable.mi_tip, "我的"));
-//
-//
+
 //        //5.初始化
         navBar.initialise();
 
@@ -81,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case 1:
-//                        replaceFragment(new TodayFragment());
+                        replaceFragment(new PlanFragment());
                         break;
                     case 2:break;
                     case 3:

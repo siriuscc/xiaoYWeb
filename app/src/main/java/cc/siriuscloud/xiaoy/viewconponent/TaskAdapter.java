@@ -40,12 +40,9 @@ public class TaskAdapter extends ArrayAdapter<Task> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
 
-        Log.d(TAG,".......class name.................."+this.tasks.get(position).getClass());
-
         //当前任务
         Task task = this.tasks.get(position);
         View taskView = LayoutInflater.from(context).inflate(resourceId,parent,false);
-
 
         // 视图数据回填
         TextView timeStartTxt = taskView.findViewById(R.id.task_time_start_txt);
@@ -54,7 +51,7 @@ public class TaskAdapter extends ArrayAdapter<Task> {
         TextView titleTxt=taskView.findViewById(R.id.task_title_txt);
 
         timeStartTxt.setText(MyStringUtils.DateToDayTime(task.getStartTime()));
-        timeStartTxt.setText(MyStringUtils.DateToDayTime(task.getEndTime()));
+        timeEndTxt.setText(MyStringUtils.DateToDayTime(task.getEndTime()));
 
         titleTxt.setText(task.getTitle());
 

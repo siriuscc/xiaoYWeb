@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONObject;
@@ -30,8 +31,10 @@ public class LoginFragment extends Fragment {
     private static final String TAG=LoginFragment.class.getName();
 
     private TextInputEditText emailInput;
-
     private TextInputEditText passwordInput;
+    private TextView registerBtn;
+
+
 
     private AppCompatButton loginBtn;
 
@@ -59,6 +62,17 @@ public class LoginFragment extends Fragment {
         emailInput = getActivity().findViewById(R.id.email_ipt);
         passwordInput = getActivity().findViewById(R.id.password_ipt);
         loginBtn = getActivity().findViewById(R.id.login_btn);
+        registerBtn=getActivity().findViewById(R.id.register_btn);
+
+        //跳转到注册页面
+        registerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                ((LoginActivity)getActivity()).replaceFragment(new RegisterFragment());
+
+            }
+        });
 
 
         String emailCache = ((LoginActivity) getActivity()).getEmailCache();
