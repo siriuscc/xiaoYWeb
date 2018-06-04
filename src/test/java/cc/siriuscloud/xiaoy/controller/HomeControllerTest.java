@@ -18,9 +18,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:spring-ssm.xml")
-@Controller
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@ContextConfiguration("classpath:spring-ssm.xml")
+//@Controller
 public class HomeControllerTest {
 
 
@@ -28,7 +28,7 @@ public class HomeControllerTest {
     private HomeController controller=new HomeController();
 
 
-    @Test
+
     public void testLogin() throws Exception{
 
 

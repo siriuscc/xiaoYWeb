@@ -7,8 +7,7 @@
     <!--导入属性配置-->
     <!--<properties resource = "db.properties" ></properties>-->
     <properties url="file:///E:/code/Java/IdeaProjects/xiaoYWeb/target/classes/db.properties"></properties>
-    <classPathEntry	location="E:/code/java/lib/mysql-connector-java-5.0.8-bin.jar"/>
-
+    <classPathEntry location="E:/code/java/lib/mysql-connector-java-5.0.8-bin.jar"/>
 
 
     <!--指定特定数据库的jdbc驱动jar包的位置-->
@@ -48,7 +47,6 @@
         </javaModelGenerator>
 
 
-
         <!-- 生成映射文件的包名和位置-->
         <sqlMapGenerator targetPackage="cc.siriuscloud.xiaoy.dao" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
@@ -65,17 +63,30 @@
         </javaClientGenerator>
 
 
-
-        <!--<table tableName="xy_user" domainObjectName="User" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
-        <table tableName="xy_task" domainObjectName="Task" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+        <!--enableCountByExample 等属性可以控制是否生成和使用xxxExample类在查询中替代模型类。-->
+        <!--<table tableName="xy_user" domainObjectName="User" enableCountByExample="false" enableUpdateByExample="false"-->
+        <!--enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+        <!--<table tableName="xy_task" domainObjectName="Task" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
         <!--<table tableName="xy_note" domainObjectName="Note" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+
+        <table tableName="xy_staff" domainObjectName="Staff" enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+        <table tableName="xy_role" domainObjectName="Role" enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+        <table tableName="xy_auth" domainObjectName="Auth" enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+
+
+
+
+
         <!--<table tableName="mmall_category" domainObjectName="Category" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
         <!--<table tableName="mmall_order" domainObjectName="Order" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
         <!--<table tableName="mmall_order_item" domainObjectName="OrderItem" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
         <!--<table tableName="mmall_pay_info" domainObjectName="PayInfo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
         <!--<table tableName="mmall_product" domainObjectName="Product" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">-->
-            <!--<columnOverride column="detail" jdbcType="VARCHAR" />-->
-            <!--<columnOverride column="sub_images" jdbcType="VARCHAR" />-->
+        <!--<columnOverride column="detail" jdbcType="VARCHAR" />-->
+        <!--<columnOverride column="sub_images" jdbcType="VARCHAR" />-->
         <!--</table>-->
 
         <!-- geelynote mybatis插件的搭建 -->

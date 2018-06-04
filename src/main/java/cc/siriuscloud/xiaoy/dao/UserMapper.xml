@@ -24,7 +24,7 @@
     <insert id="insert" parameterType="cc.siriuscloud.xiaoy.domain.User">
         insert into xy_user (user_id, username, passwd,
         email, phone)
-        values (#{userId,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{passwd,jdbcType=VARCHAR},
+        values (null, #{username,jdbcType=VARCHAR}, #{passwd,jdbcType=VARCHAR},
         #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR})
     </insert>
     <insert id="insertSelective" parameterType="cc.siriuscloud.xiaoy.domain.User">

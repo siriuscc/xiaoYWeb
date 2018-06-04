@@ -37,8 +37,28 @@ public class UserController {
             msg.setItem(loginUser);
 
         } else {
-            msg.setStatus(Msg.STATUS_ERROR);   //失败
+            msg.setStatus(Message.STATUS_ERROR);   //失败
             msg.setMsg("nologin");
+        }
+
+        return msg;
+    }
+
+
+    @RequestMapping("register")
+    @ResponseBody
+    public Message<User> register(User user) {
+
+        int register = userService.register(user);
+        Message<User> msg = new Message<>();
+
+        if (0 < register) {
+
+            msg.setMsg("register success");
+
+        } else {
+            msg.setStatus(Message.STATUS_ERROR);   //失败
+            msg.setMsg("register error");
         }
 
         return msg;

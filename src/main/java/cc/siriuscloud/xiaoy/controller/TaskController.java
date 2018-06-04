@@ -36,10 +36,6 @@ public class TaskController {
     @RequestMapping("/addTask")
     public Message<Task> addTask(Task task, String startTime) {
 
-//        logger.debug("startTime............" + startTime);
-//
-//        logger.debug("............" + task);
-//        logger.debug("............" + task.getStartTime());
 
         //插入task
         Message<Task> msg = new Message<>();
@@ -48,8 +44,9 @@ public class TaskController {
 
         if (count < 1) {
 
-            msg.setStatus(Msg.STATUS_ERROR);
+            msg.setStatus(Message.STATUS_ERROR);
         }
+
 
         return msg;
     }
@@ -82,14 +79,14 @@ public class TaskController {
 
     @ResponseBody
     @RequestMapping("/updateTask")
-    public Msg updateTask(Task task) {
+    public Message<Task> updateTask(Task task) {
 
         int count = taskService.updataTask(task);
 
 
         return (count < 1) ?
-                new Msg(Msg.STATUS_ERROR) :
-                new Msg(Msg.STATUS_SUCCESS);
+                new Message<Task>(Message.STATUS_ERROR) :
+                new Message<Task>(Message.STATUS_SUCCESS);
     }
 
 
@@ -116,13 +113,13 @@ public class TaskController {
 
         List<Task> tasks = taskService.findTodayTasks(userId);
 
-        logger.debug(".........."+tasks);
+//        logger.debug(".........."+tasks);
 
         Message<Task> msg = new Message<>();
 
         if(null == tasks){
-            msg.setStatus(Msg.STATUS_ERROR);
-            msg.setMsg(Msg.MSG_ERROR);
+            msg.setStatus(Message.STATUS_ERROR);
+            msg.setMsg(Message.MSG_ERROR);
         }
 
         msg.setData(tasks);

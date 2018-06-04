@@ -21,4 +21,10 @@ public class UserServiceImpl implements UserService {
 
         return userMapper.selectByEmailPasswd(user);
     }
+
+    @Override
+    public int register(User user) {
+
+        return userMapper.insert(user);
+    }
 }
