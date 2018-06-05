@@ -98,9 +98,16 @@
         where email = #{email} and passwd=#{passwd}
     </select>
 
+    <select id="selectAllUser" parameterType="User" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from xy_user
+    </select>
 
 
-
+    <select id="selectCountAll" resultType="java.lang.Long">
+        select count(0) from xy_user
+    </select>
 
 
 </mapper>

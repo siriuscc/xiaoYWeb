@@ -47,13 +47,11 @@
         <!--</property>-->
     <!--</bean>-->
 
-	 <mvc:annotation-driven conversion-service="conversionService">
+	 <mvc:annotation-driven>
 		 <mvc:message-converters register-defaults="true">
 		    <bean class="org.springframework.http.converter.StringHttpMessageConverter">
 			     <constructor-arg value="UTF-8" />
 		    </bean>
-             <!--<bean class="cc.siriuscloud.xiaoy.utils.DateConverter"/>-->
-
          </mvc:message-converters>
 	</mvc:annotation-driven>
 
@@ -84,7 +82,7 @@
 
 
 	<!-- 测试时，视图资源开口 -->
-	<mvc:resources location="/WEB-INF/view/" mapping="/view/**"></mvc:resources>
+	<!--<mvc:resources location="/WEB-INF/view/" mapping="/view/**"></mvc:resources>-->
 
 	<!-- 数据库相关配置 -->
 	<import resource="spring-db.xml"/>

@@ -1,6 +1,9 @@
 package cc.siriuscloud.xiaoy.service;
 
 import cc.siriuscloud.xiaoy.domain.User;
+import cc.siriuscloud.xiaoy.domain.vo.PageBean;
+
+import java.util.List;
 
 public interface UserService {
 
@@ -10,4 +13,8 @@ public interface UserService {
 
 
     int register(User user);
+
+    List<User> findAllUser();
+
+    PageBean<User> findUsersPerPage(PageBean<User> page);
 }

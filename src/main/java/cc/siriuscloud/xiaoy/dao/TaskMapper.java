@@ -19,8 +19,9 @@ public interface TaskMapper {
 
     int updateByPrimaryKey(Task record);
 
-    List<Task> findAllTaskByUserId(int userId);
+    List<Task> selectAllTaskByUserId(int userId);
 
-    List<Task> findTodayTaskByUserId(int userId);
+    List<Task> selectTodayTaskByUserId(int userId);
 
+    Long selectCountByUserId(int userId);
 }

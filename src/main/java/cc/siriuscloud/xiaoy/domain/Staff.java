@@ -1,15 +1,12 @@
 package cc.siriuscloud.xiaoy.domain;
 
 public class Staff {
-    private Integer staffId;
 
-    private String name;
-
-    private String passwd;
-
-    private Integer roleId;
-
-    private String email;
+    protected Integer staffId;
+    protected String name;
+    protected String passwd;
+    protected Integer roleId;
+    protected String email;
 
     public Integer getStaffId() {
         return staffId;

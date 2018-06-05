@@ -1,6 +1,8 @@
 package cc.siriuscloud.xiaoy.service;
 
 import cc.siriuscloud.xiaoy.domain.Task;
+import cc.siriuscloud.xiaoy.domain.User;
+import cc.siriuscloud.xiaoy.domain.vo.PageBean;
 
 import java.util.List;
 
@@ -24,4 +26,15 @@ public interface TaskService {
      * @return
      */
     List<Task> findTodayTasks(int userId);
+
+
+    /**
+     * 分页查找任务
+     * @param page
+     * @param userId
+     * @return
+     */
+    User findTaskPerPage(PageBean<Task> page, Integer userId);
+
+
 }
