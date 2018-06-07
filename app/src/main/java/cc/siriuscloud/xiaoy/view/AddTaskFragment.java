@@ -24,6 +24,7 @@ import com.jaredrummler.materialspinner.MaterialSpinner;
 import java.util.Calendar;
 import java.util.LinkedHashMap;
 
+import cc.siriuscloud.xiaoy.AlarmActivity;
 import cc.siriuscloud.xiaoy.AppVessel;
 import cc.siriuscloud.xiaoy.MainActivity;
 import cc.siriuscloud.xiaoy.R;
@@ -32,6 +33,7 @@ import cc.siriuscloud.xiaoy.dao.DaoCallBack;
 import cc.siriuscloud.xiaoy.dao.TaskDao;
 import cc.siriuscloud.xiaoy.domain.Task;
 import cc.siriuscloud.xiaoy.domain.User;
+import cc.siriuscloud.xiaoy.utils.AlarmUtil;
 
 
 public class AddTaskFragment extends Fragment {
@@ -44,23 +46,19 @@ public class AddTaskFragment extends Fragment {
     private ProgressDialog dialog;
 
 
-    private Calendar startCalendar=Calendar.getInstance();         // 开始时间
-    private Calendar endCalendar=Calendar.getInstance();           //结束时间
-
+    private Calendar startCalendar = Calendar.getInstance();         // 开始时间
+    private Calendar endCalendar = Calendar.getInstance();           //结束时间
 
     private LinearLayout startTimeLayout;       // 开始时间点的布局
     private TextView startDateTxt;              //开始日期
     private TextView startTimeTxt;              //开始时间
 
-
     private LinearLayout endTimeLayout;         //结束时间点布局
     private TextView endDateTxt;                //结束日期
     private TextView endTimeTxt;                //结束时间
 
-
     private EditText contentEdit;                   //内容
     private EditText titleEdit;                     //标题
-
 
     private MaterialSpinner remindSpinner;      //下拉刷新组件
 
@@ -95,8 +93,8 @@ public class AddTaskFragment extends Fragment {
 
         initPicker();
 
-        contentEdit=getActivity().findViewById(R.id.content_edit);
-        titleEdit=getActivity().findViewById(R.id.title_edit);
+        contentEdit = getActivity().findViewById(R.id.content_edit);
+        titleEdit = getActivity().findViewById(R.id.title_edit);
 
         //提醒时间 绑定逻辑
         remindSpinner = getActivity().findViewById(R.id.remind_spinner);
@@ -113,46 +111,57 @@ public class AddTaskFragment extends Fragment {
                 //remindTime> 0 表示之后提示
                 if (null == delayMin || startCalendar == null || delayMin > 0) {
                     Log.d(TAG, ".........空指针");
-                    delayMin =null;
+                    delayMin = null;
                     return;
                 }
             }
         });
 
 
-        submitTaskBtn=getActivity().findViewById(R.id.submit_task_btn);
+        submitTaskBtn = getActivity().findViewById(R.id.submit_task_btn);
 
         //提交按钮
         submitTaskBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog=new ProgressDialog(getActivity());
+                dialog = new ProgressDialog(getActivity());
 
                 dialog.setTitle("添加任务");
                 dialog.setMessage("提交中......");
 
-                Task task = extractTask();
+                final Task task = extractTask();
 
-                Log.d(TAG,"..............task is ......"+task);
+                Log.d(TAG, "..............task is ......" + task);
 
 
-                TaskDao taskDao=new TaskDao(new DaoCallBack() {
+                TaskDao taskDao = new TaskDao(new DaoCallBack() {
                     @Override
                     public void onSuccess(int status, String msg, Object data) {
 
-                        if(null != AddTaskFragment.this.dialog){
+                        if (null != AddTaskFragment.this.dialog) {
                             dialog.cancel();
                         }
+
 
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(getActivity(),"添加成功",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "添加成功", Toast.LENGTH_SHORT).show();
+
+
+                                long startTime = task.getStartTime().getTime();
+                                long delayMin = task.getDelayMin() * 1000 * 60L;
+
+                                long triggerAtTime=startTime+delayMin;
+
+
+                                //TODO: 添闹钟
+                                AlarmUtil.addAlarm(getActivity(),triggerAtTime,task.getStartTime());
 
                             }
                         });
 
-                        ((MainActivity)(getActivity())).replaceFragment(new TodayFragment());
+                        ((MainActivity) (getActivity())).replaceFragment(new TodayFragment());
                     }
 
                     @Override
@@ -160,7 +169,7 @@ public class AddTaskFragment extends Fragment {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(getActivity(),"添加失败",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "添加失败", Toast.LENGTH_SHORT).show();
                             }
                         });
 
@@ -174,9 +183,9 @@ public class AddTaskFragment extends Fragment {
 
     private Task extractTask() {
 
-        Task task=new Task();
+        Task task = new Task();
 
-        User user=AppVessel.get("user");
+        User user = AppVessel.get("user");
 
         task.setUserId(user.getUserId());
         task.setStartTime(this.startCalendar.getTime());
@@ -184,11 +193,11 @@ public class AddTaskFragment extends Fragment {
         task.setContent(this.contentEdit.getText().toString());
         task.setTitle(this.titleEdit.getText().toString());
 
-        if(null == this.delayMin){
-            this.delayMin=0;
+        if (null == this.delayMin) {
+            this.delayMin = 0;
         }
         task.setDelayMin(this.delayMin);
-        Log.d(TAG,task+"");
+        Log.d(TAG, task + "");
 
         return task;
     }
@@ -198,7 +207,7 @@ public class AddTaskFragment extends Fragment {
      * 初始化时间选择器组件绑定
      * 初始化组件回调方法
      */
-    private void initPicker(){
+    private void initPicker() {
 
         //开始时间选择器 绑定 逻辑
         startTimeLayout = getActivity().findViewById(R.id.start_time_layout);
@@ -215,7 +224,7 @@ public class AddTaskFragment extends Fragment {
                     @Override
                     public void call(Calendar calendar, int year, int month, int day, int hour, int minute) {
 
-                        String dateString = String.format("%04d年%02d月%02d日", year, month+1, day);
+                        String dateString = String.format("%04d年%02d月%02d日", year, month + 1, day);
                         String timeString = String.format("%02d:%02d", hour, minute);
 
                         startDateTxt.setText(dateString);
@@ -253,7 +262,7 @@ public class AddTaskFragment extends Fragment {
                     @Override
                     public void call(Calendar calendar, int year, int month, int day, int hour, int minute) {
 
-                        String dateString = String.format("%04d年%02d月%02d日", year, month+1, day);
+                        String dateString = String.format("%04d年%02d月%02d日", year, month + 1, day);
                         String timeString = String.format("%02d:%02d", hour, minute);
 
                         endCalendar = Calendar.getInstance();
@@ -272,39 +281,6 @@ public class AddTaskFragment extends Fragment {
         });
 
     }
-
-
-    /**
-     * 添加一个闹钟，到点自动发送广播 #{AlarmReceiver.ALARM_RECEIVER_URI}
-     *
-     * @param remindMin 表示提前多少分钟通知，小于0
-     */
-    private void addAlarm(int remindMin) {
-
-        //提前通知
-
-        Intent intent = new Intent(AlarmReceiver.ALARM_RECEIVER_URI);
-
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                getActivity(),
-                0,
-                intent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
-
-        AlarmManager manager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
-
-        Log.d(TAG, "............系统时间........" + System.currentTimeMillis());
-
-        long triggerAtTime = startCalendar.getTimeInMillis() + remindMin * 60 * 1000;
-
-        Log.d(TAG, "............响铃时间........" + triggerAtTime);
-
-        //每次设置都是发送一个广播,到点发广播
-        manager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerAtTime, pendingIntent);
-
-    }
-
-
 
 
 }

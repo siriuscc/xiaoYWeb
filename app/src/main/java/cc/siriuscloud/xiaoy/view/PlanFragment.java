@@ -19,7 +19,7 @@ import cc.siriuscloud.xiaoy.R;
 import cc.siriuscloud.xiaoy.dao.DaoCallBack;
 import cc.siriuscloud.xiaoy.dao.TaskDao;
 import cc.siriuscloud.xiaoy.domain.Task;
-import cc.siriuscloud.xiaoy.utils.MyStringUtils;
+import cc.siriuscloud.xiaoy.utils.MyDateUtil;
 import cc.siriuscloud.xiaoy.viewconponent.TaskExpandableListAdapter;
 
 public class PlanFragment extends Fragment {
@@ -103,8 +103,6 @@ public class PlanFragment extends Fragment {
                         taskExpandableListAdapter.notifyDataSetChanged();
                     }
                 });
-
-
             }
 
             @Override
@@ -144,7 +142,7 @@ public class PlanFragment extends Fragment {
 
             Task task = tasks.get(i);
 
-            if (MyStringUtils.sameDate(task.getStartTime(), preTask.getStartTime())) {
+            if (MyDateUtil.sameDate(task.getStartTime(), preTask.getStartTime())) {
 
                 currentTaskList.add(task);
             } else {
@@ -173,7 +171,7 @@ public class PlanFragment extends Fragment {
 
         for(int i=0;i<groupList.size();++i){
 
-            Log.d(TAG,"group:......"+MyStringUtils.DateToDay(groupList.get(i)));
+            Log.d(TAG,"group:......"+ MyDateUtil.dateToDay(groupList.get(i)));
 
             for(int j=0;j<childList.get(j).size();++j){
 

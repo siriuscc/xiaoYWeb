@@ -18,6 +18,8 @@ import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.Response;
 
+import static cc.siriuscloud.xiaoy.AppVessel.BASE_URL;
+
 public class TaskDao {
 
     public TaskDao(DaoCallBack daoCallBack) {
@@ -25,11 +27,11 @@ public class TaskDao {
     }
 
 
-    public static final String URL_ADD_TASK = "http://10.0.2.2:8080/task/addTask.do";
-    public static final String URL_FIND_TODAY_TASK = "http://10.0.2.2:8080/task/findTodayTasks.do";
-    public static final String URL_FIND_TASK_BY_USERID = "http://10.0.2.2:8080/task/findTask.do";
-    public static final String URL_REMOVE_TASK = "http://10.0.2.2:8080/task/removeTask.do";
-    public static final String URL_FIND_ALL_TASK="http://10.0.2.2:8080/task/findAllTasks.do";
+    public static final String URL_ADD_TASK = BASE_URL+"/task/addTask.do";
+    public static final String URL_FIND_TODAY_TASK = BASE_URL+"/task/findTodayTasks.do";
+    public static final String URL_FIND_TASK_BY_USERID = BASE_URL+"/task/findTask.do";
+    public static final String URL_REMOVE_TASK = BASE_URL+"/task/removeTask.do";
+    public static final String URL_FIND_ALL_TASK=BASE_URL+"/task/findAllTasks.do";
 
 
 
@@ -66,6 +68,8 @@ public class TaskDao {
 //                    int status = jsonArray.getInt("status");
 
                     int status = jsonObject.getInt("status");
+
+
 
                     //成功
                     if (status == 0) {

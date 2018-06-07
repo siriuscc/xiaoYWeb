@@ -117,13 +117,15 @@ public class Message<T> implements Serializable {
             int status = jsonObject.getInt("status");
             String msg = jsonObject.getString("msg");
 
+            this.setStatus(status);
+            this.setMsg(msg);
+
             if (jsonObject.has("item")) {
 
                 String objectString = jsonObject.getString("item");
                 T obj = gson.fromJson(objectString, clazz);
                 this.setItem(obj);
             }
-
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -138,7 +140,10 @@ public class Message<T> implements Serializable {
             JSONObject jsonObject = new JSONObject(jsonString);
             int status = jsonObject.getInt("status");
             String message = jsonObject.getString("msg");
-            String objectString = jsonObject.getString("data");
+
+            this.setMsg(message);
+            this.setStatus(status);
+
 
             JSONArray dataArr = jsonObject.getJSONArray("data");
 

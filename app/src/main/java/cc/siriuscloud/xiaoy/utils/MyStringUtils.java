@@ -14,14 +14,6 @@ import java.util.logging.SimpleFormatter;
 
 public class MyStringUtils {
 
-	private static final String DATA_PATTERN="YYYY-MM-dd HH:mm:ss";
-
-	private static final String TIME_PATTERN="HH:mm";
-
-	private static final String DATA_DAY_PATTERN="YYYY-MM-dd";
-
-
-
 
 
 	public static String String2Md5(String value){
@@ -59,57 +51,6 @@ public class MyStringUtils {
 	}
 
 
-	/**
-	 * "YYYY-MM-dd HH:mm:ss"
-	 * @param date
-	 * @return
-	 */
-	public static String DateToDayTime(Date date){
-
-		DateFormat fmt =new SimpleDateFormat(TIME_PATTERN);
-
-		return fmt.format(date);
-	}
-
-	/**
-	 * "HH:mm"
-	 * @param date
-	 * @return
-	 */
-    public static String DateToString(Date date){
-
-        DateFormat fmt =new SimpleDateFormat(DATA_PATTERN);
-
-        return fmt.format(date);
-    }
-
-
-	/**
-	 * "YYYY-MM-dd"
-	 * @param date
-	 * @return
-	 */
-	public static String DateToDay(Date date){
-
-		DateFormat fmt =new SimpleDateFormat(DATA_DAY_PATTERN);
-
-		return fmt.format(date);
-
-	}
-
-
-
-	public static boolean sameDate(Date d1, Date d2) {
-		if(null == d1 || null == d2)
-			return false;
-		//return getOnlyDate(d1).equals(getOnlyDate(d2));
-		Calendar cal1 = Calendar.getInstance();
-		cal1.setTime(d1);
-		Calendar cal2 = Calendar.getInstance();
-		cal2.setTime(d2);
-		return  cal1.get(Calendar.ERA) == cal2.get(Calendar.ERA) && cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
-				cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR);
-	}
 
 
 

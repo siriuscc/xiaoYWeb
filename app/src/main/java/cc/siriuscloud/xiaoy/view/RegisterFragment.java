@@ -140,6 +140,13 @@ public class RegisterFragment extends Fragment {
                             @Override
                             public void run() {
                                 Toast.makeText(getActivity(), "注册失败", Toast.LENGTH_SHORT).show();
+
+
+                                if(dialog!=null){
+                                    dialog.cancel();
+                                }
+
+
                             }
                         });
 

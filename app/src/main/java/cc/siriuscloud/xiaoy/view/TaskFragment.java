@@ -1,8 +1,6 @@
 package cc.siriuscloud.xiaoy.view;
 
-import android.content.Context;
 import android.content.DialogInterface;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -19,7 +17,7 @@ import cc.siriuscloud.xiaoy.R;
 import cc.siriuscloud.xiaoy.dao.DaoCallBack;
 import cc.siriuscloud.xiaoy.dao.TaskDao;
 import cc.siriuscloud.xiaoy.domain.Task;
-import cc.siriuscloud.xiaoy.utils.MyStringUtils;
+import cc.siriuscloud.xiaoy.utils.MyDateUtil;
 
 public class TaskFragment extends Fragment {
 
@@ -84,7 +82,6 @@ public class TaskFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
 
-
         //绑定组件
 
         titleText = getActivity().findViewById(R.id.title_txt);
@@ -111,7 +108,7 @@ public class TaskFragment extends Fragment {
                                 getActivity().runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Toast.makeText(getActivity(),"cancle??",Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getActivity(), "cancle??", Toast.LENGTH_SHORT).show();
                                     }
                                 });
                             }
@@ -120,17 +117,17 @@ public class TaskFragment extends Fragment {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
-                                TaskDao taskDao=new TaskDao(new DaoCallBack() {
+                                TaskDao taskDao = new TaskDao(new DaoCallBack() {
                                     @Override
                                     public void onSuccess(int status, String msg, Object data) {
 
                                         getActivity().runOnUiThread(new Runnable() {
                                             @Override
                                             public void run() {
-                                                Toast.makeText(getActivity(),"删除成功",Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(getActivity(), "删除成功", Toast.LENGTH_SHORT).show();
 
                                                 //TODO 这里本来应该回退到上一窗口，回退功能还没写，算了
-                                               ((MainActivity)getActivity()).replaceFragment(new TodayFragment());
+                                                ((MainActivity) getActivity()).replaceFragment(new TodayFragment());
 
                                             }
                                         });
@@ -147,9 +144,7 @@ public class TaskFragment extends Fragment {
                                 taskDao.removeTask(taskId);
 
                             }
-                        })
-
-                        .create();
+                        }).create();
 
                 alertDialog.show();
 
@@ -169,8 +164,8 @@ public class TaskFragment extends Fragment {
                     public void run() {
 
                         titleText.setText(task.getTitle());
-                        startDateText.setText(MyStringUtils.DateToString(task.getStartTime()));
-                        endDateText.setText(MyStringUtils.DateToString(task.getEndTime()));
+                        startDateText.setText(MyDateUtil.dateToString(task.getStartTime()));
+                        endDateText.setText(MyDateUtil.dateToString(task.getEndTime()));
                         delayMinText.setText(task.getDelayMin() + "分钟前");
 
                         contentText.setText(task.getContent());

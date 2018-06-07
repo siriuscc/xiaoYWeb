@@ -1,5 +1,7 @@
 package cc.siriuscloud.xiaoy.dao;
 
+import android.util.Log;
+
 import java.io.IOException;
 
 import cc.siriuscloud.xiaoy.domain.User;
@@ -10,10 +12,13 @@ import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.Response;
 
+import static cc.siriuscloud.xiaoy.AppVessel.BASE_URL;
+
 public class UserDao {
 
-    private static final String URL_LOGIN = "http://10.0.2.2:8080/user/login.do";
-    private static final String URL_USER_REGISTER = "http://10.0.2.2:8080/user/register.do";
+    private static final String URL_LOGIN = BASE_URL+"/user/login.do";
+    private static final String URL_USER_REGISTER = BASE_URL+"/user/register.do";
+    private static final String TAG = UserDao.class.getName();
 
 
     private DaoCallBack daoCallBack;
@@ -46,7 +51,13 @@ public class UserDao {
 
                 //将数据转为json
                 String body = response.body().string();
+                Log.d(TAG,"body..................."+body);
+
+
+
                 Message<User> msg = new Message<User>().jsonBuildItem(body, User.class);
+                Log.d(TAG,"onResponse..................."+msg);
+
                 if (msg.getStatus() != 0) {
                     daoCallBack.onError(msg.getStatus(), Message.MSG_ERROR, null);
                 } else {
@@ -77,6 +88,8 @@ public class UserDao {
                 //将数据转为json
                 String body = response.body().string();
                 Message<User> msg = new Message<User>().jsonBuildItem(body, User.class);
+
+                Log.d(TAG,"..................."+msg);
                 if (msg.getStatus() != 0) {
                     daoCallBack.onError(msg.getStatus(), Message.MSG_ERROR, null);
                 } else {

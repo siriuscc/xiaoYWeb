@@ -103,18 +103,11 @@ public class TodayFragment extends Fragment {
             @Override
             public void onSuccess(int status, String msg, List<Task> data) {
 
-//                Log.d(TAG,".....data class............."+data.getClass().getName());
-
                 TodayFragment.this.tasks.clear();
 
                 TodayFragment.this.tasks.addAll(data);
 
-//
-//                for(Task task:data){
-////                    Log.d(TAG,"........task:"+task);
-//                }
-
-                ((MainActivity)getActivity()).runOnUiThread(new Runnable() {
+                getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         taskAdapter.notifyDataSetChanged();
@@ -122,14 +115,12 @@ public class TodayFragment extends Fragment {
                 });
 
 
-//                Log.d(TAG,".....................tasks:"+tasks.size());
-
             }
 
             @Override
             public void onError(int status, String msg, List<Task> data) {
 
-                ((MainActivity)getActivity()).runOnUiThread(new Runnable() {
+                getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         Toast.makeText(getActivity(),"加载数据失败",Toast.LENGTH_SHORT).show();

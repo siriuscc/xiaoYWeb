@@ -95,15 +95,16 @@ public class LoginFragment extends Fragment {
                     @Override
                     public void onSuccess(int status, String msg, User user) {
 
+
                         if (dialog != null) {
                             dialog.dismiss();
                             dialog = null;
                         }
                         //保存数据
                         AppVessel.put("user",user);
+                        Log.d(TAG,"...........AppVessel.put(\"user,\""+user+");");
 
-                        Log.d(TAG,"login user.........."+user);
-
+                        Log.d(TAG,"login status:.........."+status);
 
                         ((LoginActivity)getActivity()).setEmailCache(email);
 
@@ -113,6 +114,11 @@ public class LoginFragment extends Fragment {
                                 Toast.makeText(getActivity(), "登录成功", Toast.LENGTH_SHORT).show();
                             }
                         });
+
+
+                        //提交地理位置数据
+                        ((LoginActivity)getActivity()).requestLocation();
+
 
                         Intent intent = new Intent(getActivity(), MainActivity.class);
 

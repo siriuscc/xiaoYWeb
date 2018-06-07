@@ -46,7 +46,7 @@ public class HttpUtil {
                 String key = field.getName();
                 Object value = field.get(obj);
 
-                String format = DataFormat.format(value);
+                String format = MyDateUtil.format(value);
 
                 if (key != null && value != null) {
                     builder.add(key, format);

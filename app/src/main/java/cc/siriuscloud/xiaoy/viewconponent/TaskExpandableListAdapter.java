@@ -8,14 +8,11 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
 import java.util.Date;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import cc.siriuscloud.xiaoy.R;
 import cc.siriuscloud.xiaoy.domain.Task;
-import cc.siriuscloud.xiaoy.domain.vo.TaskDayVo;
-import cc.siriuscloud.xiaoy.utils.MyStringUtils;
+import cc.siriuscloud.xiaoy.utils.MyDateUtil;
 
 public class TaskExpandableListAdapter extends BaseExpandableListAdapter {
 
@@ -99,7 +96,7 @@ public class TaskExpandableListAdapter extends BaseExpandableListAdapter {
 
         Date group = (Date) getGroup(groupPosition);
         TextView titleView = view.findViewById(R.id.view_title);
-        titleView.setText(MyStringUtils.DateToDay(group));
+        titleView.setText(MyDateUtil.dateToDay(group));
 
         return view;
     }
@@ -123,8 +120,8 @@ public class TaskExpandableListAdapter extends BaseExpandableListAdapter {
 
         TextView titleTxt=taskView.findViewById(R.id.task_title_txt);
 
-        timeStartTxt.setText(MyStringUtils.DateToDayTime(task.getStartTime()));
-        timeEndTxt.setText(MyStringUtils.DateToDayTime(task.getEndTime()));
+        timeStartTxt.setText(MyDateUtil.dateToDayTime(task.getStartTime()));
+        timeEndTxt.setText(MyDateUtil.dateToDayTime(task.getEndTime()));
         titleTxt.setText(task.getTitle());
 
         return taskView;

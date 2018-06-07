@@ -3,7 +3,6 @@ package cc.siriuscloud.xiaoy.viewconponent;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,7 @@ import java.util.List;
 
 import cc.siriuscloud.xiaoy.R;
 import cc.siriuscloud.xiaoy.domain.Task;
-import cc.siriuscloud.xiaoy.utils.MyStringUtils;
+import cc.siriuscloud.xiaoy.utils.MyDateUtil;
 
 public class TaskAdapter extends ArrayAdapter<Task> {
 
@@ -50,8 +49,8 @@ public class TaskAdapter extends ArrayAdapter<Task> {
 
         TextView titleTxt=taskView.findViewById(R.id.task_title_txt);
 
-        timeStartTxt.setText(MyStringUtils.DateToDayTime(task.getStartTime()));
-        timeEndTxt.setText(MyStringUtils.DateToDayTime(task.getEndTime()));
+        timeStartTxt.setText(MyDateUtil.dateToDayTime(task.getStartTime()));
+        timeEndTxt.setText(MyDateUtil.dateToDayTime(task.getEndTime()));
 
         titleTxt.setText(task.getTitle());
 
