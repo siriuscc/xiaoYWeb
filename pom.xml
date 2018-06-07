@@ -210,11 +210,14 @@
             <version>2.18.3</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>RELEASE</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>junit</groupId>-->
+            <!--<artifactId>junit</artifactId>-->
+            <!--<version>RELEASE</version>-->
+        <!--</dependency>-->
+
+
+        <!--gson 工具-->
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
@@ -225,6 +228,28 @@
             <artifactId>json</artifactId>
             <version>20160212</version>
         </dependency>
+
+
+
+        <!--&lt;!&ndash;获取系统参数需要的依赖&ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>com.github.dblock</groupId>-->
+            <!--<artifactId>oshi-core</artifactId>-->
+            <!--<version>3.2</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>com.github.dblock</groupId>-->
+            <!--<artifactId>oshi-json</artifactId>-->
+            <!--<version>3.2</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>net.java.dev.jna</groupId>-->
+            <!--<artifactId>jna-platform</artifactId>-->
+            <!--<version>4.2.1</version>-->
+        <!--</dependency>-->
+
+
+
 
     </dependencies>
 

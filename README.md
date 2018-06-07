@@ -28,11 +28,31 @@ https://developer.android.com/training/scheduling/alarms
 
 
 
-后端全部用vue 去绑定组件
-
-然后直接jq请求数据，返回后给vue绑定
 
 
+
+
+
+
+
+session listener 来获取当前连接数
+
+
+
+
+
+
+
+
+
+
+
+先把系统参数面板写一下
+
+
+
+
+前几天把tomcat配置崩了
 
 
 

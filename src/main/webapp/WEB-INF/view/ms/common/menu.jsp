@@ -20,7 +20,7 @@
     <div class="sidebar-wrapper">
         <ul class="nav">
             <li>
-                <a href="dashboard.html">
+                <a href="${pageContext.request.contextPath}/ms/system/dashboard.do">
                     <i class="material-icons">dashboard</i>
                     <p>面板</p>
                 </a>
@@ -31,7 +31,7 @@
                     <p>我的</p>
                 </a>
             </li>
-            <li class="active">
+            <li >
                 <a href="${pageContext.request.contextPath}/ms/user/userlist.do">
                     <i class="material-icons">content_paste</i>
                     <p>用户</p>
@@ -44,13 +44,13 @@
                 </a>
             </li>
             <li>
-                <a href="./notifications.html">
+                <a href="${pageContext.request.contextPath}/ms/notify/notify.do">
                     <i class="material-icons text-gray">notifications</i>
                     <p>通知</p>
                 </a>
             </li>
             <li class="active-pro">
-                <a href="upgrade.html">
+                <a href="${pageContext.request.contextPath}/ms/upgrade/upgrade.do">
                     <i class="material-icons">unarchive</i>
                     <p>购买高级功能</p>
                 </a>

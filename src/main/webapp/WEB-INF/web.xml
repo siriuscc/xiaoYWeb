@@ -56,4 +56,9 @@
         <servlet-name>springmvc</servlet-name>
         <url-pattern>*.do</url-pattern>
     </servlet-mapping>
+
+    <listener>
+        <listener-class>cc.siriuscloud.xiaoy.SessionCounter</listener-class>
+    </listener>
+
 </web-app>

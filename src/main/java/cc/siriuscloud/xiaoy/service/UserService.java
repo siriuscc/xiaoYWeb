@@ -17,4 +17,6 @@ public interface UserService {
     List<User> findAllUser();
 
     PageBean<User> findUsersPerPage(PageBean<User> page);
+
+    int removeUserById(int userId);
 }

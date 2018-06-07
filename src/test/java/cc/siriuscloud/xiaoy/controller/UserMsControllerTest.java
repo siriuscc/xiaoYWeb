@@ -73,8 +73,6 @@ public class UserMsControllerTest {
         Integer pageNum=null;
         Integer userId=2;
 
-
-
         //构造分页容器
         PageBean<Task> page = new PageBean<>();
 
@@ -85,17 +83,7 @@ public class UserMsControllerTest {
         page.setPageSize(5);
 
 
-
-
-        page=taskService.findTaskPerPage(page,userId);
-
-
-        System.out.println(page);
-
-
-        for(Task task:page.getData()){
-            System.out.println(task);
-        }
+        User user=taskService.findTaskPerPage(page,userId);
 
 
     }

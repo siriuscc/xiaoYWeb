@@ -52,6 +52,17 @@ public class UserMsController {
     }
 
 
+
+    @ResponseBody
+    @RequestMapping("removeUser")
+    public String removeUser(int userId){
+
+        int i = userService.removeUserById(userId);
+
+        return i+"";
+    }
+
+
     @RequestMapping("tasklist")
     public String taskList(ModelMap map,Integer userId,Integer pageNum){
 
@@ -82,8 +93,9 @@ public class UserMsController {
 
         int i = taskService.removeTaskById(taskId);
 
-
         return i+"";
     }
+
+
 
 }

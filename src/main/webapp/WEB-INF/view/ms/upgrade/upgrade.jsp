@@ -1,14 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-
-
 <html lang="en">
 
 <head>
     <meta charset="utf-8"/>
-    <link rel="apple-touch-icon" sizes="76x76"
-          href="${pageContext.request.contextPath}/public/assets/img/apple-icon.png"/>
+    <link rel="apple-touch-icon" sizes="76x76" href="${pageContext.request.contextPath}/public/assets/img/apple-icon.png"/>
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/public/assets/img/favicon.png"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <title>Material Dashboard by Creative Tim</title>
@@ -28,10 +25,61 @@
 
 <body>
 <div class="wrapper">
+    <div class="sidebar" data-color="blue" data-image="${pageContext.request.contextPath}/public/assets/img/sidebar-1.jpg">
+        <!--
+    Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
+
+    Tip 2: you can also add an image using data-image tag
+-->
+        <div class="logo">
+            <a href="http://www.creative-tim.com" class="simple-text">
+                小Y后台管理
+            </a>
+        </div>
 
 
-    <!-- 菜单 -->
-    <jsp:include page="${pageContext.request.contextPath}/WEB-INF/view/ms/common/menu.jsp"></jsp:include>
+        <!--左边的导航栏-->
+        <div class="sidebar-wrapper">
+            <ul class="nav">
+                <li>
+                    <a href="dashboard.html">
+                        <i class="material-icons">dashboard</i>
+                        <p>面板</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="myself.html">
+                        <i class="material-icons">person</i>
+                        <p>我的</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="userlist.html">
+                        <i class="material-icons">content_paste</i>
+                        <p>用户</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="./maps.html">
+                        <i class="material-icons">location_on</i>
+                        <p>定位</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="./notifications.html">
+                        <i class="material-icons text-gray">notifications</i>
+                        <p>通知</p>
+                    </a>
+                </li>
+                <li class="active-pro">
+                    <a href="upgrade.html">
+                        <i class="material-icons">unarchive</i>
+                        <p>购买高级功能</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
 
 
     <div class="main-panel">
@@ -44,7 +92,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#"> 任务列表 </a>
+                    <a class="navbar-brand" href="#"> 升级 </a>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
@@ -98,78 +146,70 @@
                 </div>
             </div>
         </nav>
+
+
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-8 col-md-offset-2">
                         <div class="card">
-                            <div class="card-header" data-background-color="blue">
-                                <h4 class="title">任务列表</h4>
-                                <p class="category">用户一共发布了${page.totalRecord} 个任务</p>
+                            <div class="card-header text-center" data-background-color="blue">
+                                <h3 class="title">解锁超级技能</h3>
+                                <p class="category">是否希望增强平台功能？比如窥视用户信息？</p>
                             </div>
-                            <div class="card-content table-responsive">
-                                <table class="table">
-                                    <thead class="text-primary">
-                                    <th>标题</th>
-                                    <th>内容</th>
-                                    <th>开始时间</th>
-                                    <th>结束时间</th>
-                                    <th>提醒时间</th>
-                                    <th>删除</th>
-                                    </thead>
-                                    <tbody>
-
-
-                                    <c:forEach items="${page.data}" var="task" varStatus="vs">
-                                        <tr>
-                                            <td>${task.title}</td>
-                                            <td>${task.content}</td>
-                                            <td>
-                                                <fmt:formatDate value="${task.startTime}" type="both"/>
-                                            </td>
-                                            <td class="text-primary">
-                                                <fmt:formatDate value="${task.endTime}" type="both"/>
-                                            </td>
-
-                                            <td>${task.delayMin} min </td>
-                                            <td>
-                                                <button class="btn btn-info" onclick="javascript:removeTask(${task.taskId})">删除</button>
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="card card-profile">
-                            <div class="card-avatar">
-                                <a href="#pablo">
-                                    <img class="img" src="${pageContext.request.contextPath}/public/assets/img/faces/headImg.png"/>
-                                </a>
-                            </div>
-                            <div class="content">
-                                <h6 class="category text-gray">${user.email}</h6>
-                                <h4 class="card-title">${user.username}</h4>
-                                <p class="card-content">
-                                    ${user.phone}
-                                </p>
-                                <a href="javascript:removeTask()" class="btn btn-primary btn-round">删除</a>
+                            <div class="card-content">
+                                <div class="row">
+                                    <div class="col-sm-offset-4 col-sm-4">
+                                        <img src="${pageContext.request.contextPath}/public/assets/img/QRCode.jpg" alt="...">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- 底部导航 -->
-        <jsp:include page="${pageContext.request.contextPath}/WEB-INF/view/ms/common/footer.jsp"></jsp:include>
-
-
     </div>
+
+
+
+
+    <footer class="footer">
+        <div class="container-fluid">
+            <nav class="pull-left">
+                <ul>
+                    <li>
+                        <a href="#">
+                            Home
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            Company
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            Portfolio
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            Blog
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <p class="copyright pull-right">
+                &copy;
+                <script>
+                    document.write(new Date().getFullYear())
+                </script>
+                <a href="http://www.creative-tim.com">Creative Tim</a>, made with love for a better web
+            </p>
+        </div>
+    </footer>
+</div>
 </div>
 </body>
 <!--   Core JS Files   -->
@@ -190,90 +230,5 @@
 <script src="${pageContext.request.contextPath}/public/assets/js/material-dashboard.js?v=1.2.0"></script>
 <!-- Material Dashboard DEMO methods, don't include it in your project! -->
 <script src="${pageContext.request.contextPath}/public/assets/js/demo.js"></script>
-<script src="${pageContext.request.contextPath}/public/assets/js/jquery.ext.js"></script>
-
-
-
-<script>
-
-    $(document).ready(function () {
-
-        $(".sidebar-wrapper ul li").removeClass("active");
-        $(".sidebar-wrapper ul li:nth-child(3)").attr("class", "active");
-    });
-
-
-    function removeTask(taskId){
-
-        var res=confirm("是否删除？");
-
-
-        if(res){
-
-            $.ajax({
-                type: "POST",
-                url: "${pageContext.request.contextPath}/ms/user/removeTask.do",
-                data: "taskId="+taskId,
-                async:false,
-                success: function(msg){
-
-                    if(parseInt(msg)>0){
-
-                        alert("删除成功");
-                        window.location.href=window.location.href+"&0.11234"
-                    }else{
-                        alert("删除失败");
-                    }
-
-                },
-                error:function (msg) {
-                    alert("删除失败");
-                }
-            })
-        }else{
-            alert("删除失败");
-        }
-    }
-
-
-    function removeTask(){
-
-        var userId=$.getUrlParam("userId");
-
-
-        var res=confirm("是否删除用户？");
-        if(res){
-
-            $.ajax({
-                type: "POST",
-                url: "${pageContext.request.contextPath}/ms/user/removeUser.do",
-                data: "userId="+userId,
-                async:false,
-                success: function(msg){
-
-                    if(parseInt(msg)>0){
-
-                        alert("删除成功");
-                        window.location.href="${pageContext.request.contextPath}/ms/user/userlist.do";
-                    }else{
-                        alert("删除失败");
-                    }
-
-                },
-                error:function (msg) {
-                    alert("删除失败");
-                }
-            })
-
-        }else{
-            alert("删除失败");
-        }
-
-
-
-    }
-
-</script>
-
 
 </html>
