@@ -14,22 +14,7 @@
         <nav class="pull-left">
             <ul>
                 <li>
-                    <a href="#">
-                        Home
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        Company
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        Portfolio
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
+                    <a href="http://blog.siriuscloud.cc">
                         Blog
                     </a>
                 </li>
@@ -40,7 +25,7 @@
             <script>
                 document.write(new Date().getFullYear())
             </script>
-            <a href="http://www.creative-tim.com">Creative Tim</a>, made with love for a better web
+            <a href="http://www.siriuscloud.cc">sirius</a>, made with love for a better web
         </p>
     </div>
 </footer>

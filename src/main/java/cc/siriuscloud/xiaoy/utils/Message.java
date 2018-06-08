@@ -29,11 +29,7 @@ public class Message<T> implements Serializable {
     private List<T> data = null;
     private Gson gson=new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();;
 
-    static {
 
-        TimeZone.setDefault(TimeZone.getTimeZone("GMT-8"));
-
-    }
 
     public Message() {
     }

@@ -7,6 +7,7 @@ import cc.siriuscloud.xiaoy.service.UserLocationService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class UserLocationServiceImpl  implements UserLocationService {
@@ -19,5 +20,12 @@ public class UserLocationServiceImpl  implements UserLocationService {
     public int addLocation(UserLocation location) {
 
         return userLocationMapper.insertSelective(location);
+    }
+
+    @Override
+    public List<UserLocation> findAllLast() {
+
+
+        return userLocationMapper.selectAllLast();
     }
 }

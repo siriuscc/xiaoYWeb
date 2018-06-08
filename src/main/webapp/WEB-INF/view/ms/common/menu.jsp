@@ -38,13 +38,13 @@
                 </a>
             </li>
             <li>
-                <a href="./maps.html">
+                <a href="${pageContext.request.contextPath}/ms/location/maps.do">
                     <i class="material-icons">location_on</i>
                     <p>定位</p>
                 </a>
             </li>
             <li>
-                <a href="${pageContext.request.contextPath}/ms/notify/notify.do">
+                <a href="${pageContext.request.contextPath}/ms/notify/notifications.do">
                     <i class="material-icons text-gray">notifications</i>
                     <p>通知</p>
                 </a>

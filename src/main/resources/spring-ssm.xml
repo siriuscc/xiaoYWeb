@@ -72,6 +72,9 @@
 	<!-- 文件上传支持 -->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
 
+
+    <!--全局异常解析-->
+    <bean class="cc.siriuscloud.xiaoy.MyHandlerExceptionResolver"></bean>
 	<!-- 拦截器栈  -->
 	<!--<mvc:interceptors>-->
 		<!--<mvc:interceptor>-->
