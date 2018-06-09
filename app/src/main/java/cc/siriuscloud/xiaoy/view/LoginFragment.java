@@ -26,6 +26,9 @@ import cc.siriuscloud.xiaoy.domain.User;
 import cc.siriuscloud.xiaoy.utils.MyStringUtils;
 
 
+/**
+ * 登录窗口
+ */
 public class LoginFragment extends Fragment {
 
     private static final String TAG=LoginFragment.class.getName();

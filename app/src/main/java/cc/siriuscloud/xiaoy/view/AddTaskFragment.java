@@ -170,9 +170,16 @@ public class AddTaskFragment extends Fragment {
 
                                 Log.d(TAG, "..闹钟UI...........");
 
-                                //TODO: 添闹钟
 
-                                AlarmUtil.addAlarmEs(getActivity(), triggerAtTime, task.getStartTime());
+
+                                // 添闹钟
+                                Intent intent = new Intent(getActivity(), AlarmActivity.class);
+
+                                intent.putExtra("title",task.getTitle());
+                                intent.putExtra("content",task.getContent());
+
+
+                                AlarmUtil.addAlarmEs(getActivity(), intent,triggerAtTime, task.getStartTime());
 
                             }
                         });

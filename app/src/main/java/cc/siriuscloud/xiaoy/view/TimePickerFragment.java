@@ -12,6 +12,10 @@ import java.util.Calendar;
 import java.util.TimeZone;
 
 //实现OnTimeSetListener接口
+
+/**
+ * 时间选择窗口
+ */
 public class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener{
 
 

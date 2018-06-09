@@ -19,6 +19,9 @@ import cc.siriuscloud.xiaoy.dao.TaskDao;
 import cc.siriuscloud.xiaoy.domain.Task;
 import cc.siriuscloud.xiaoy.utils.MyDateUtil;
 
+/**
+ * 任务详情页面
+ */
 public class TaskFragment extends Fragment {
 
     public static final String TASKID = "taskId";

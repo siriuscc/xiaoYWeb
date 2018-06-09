@@ -1,5 +1,6 @@
 package cc.siriuscloud.xiaoy.view;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -31,6 +32,8 @@ public class TodayFragment extends Fragment {
     private static final String TAG="TodayFragment...";
     private FloatingActionButton addTaskBtn;
 
+    private ProgressDialog dialog;
+
     //任务列表
     private ListView tasksView;
     private List<Task> tasks=new ArrayList<>();
@@ -50,6 +53,14 @@ public class TodayFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        //显示遮蔽框
+        dialog = new ProgressDialog(getActivity());
+        dialog.setTitle("请稍候");
+        dialog.setMessage("同步数据......");
+        dialog.setCancelable(false);
+        dialog.show();
+
 
         tasksView =this.getActivity().findViewById(R.id.tasks_layout);
         initTasks();
@@ -101,7 +112,7 @@ public class TodayFragment extends Fragment {
         TaskDao taskDao = new TaskDao(new DaoCallBack<List<Task>>() {
 
             @Override
-            public void onSuccess(int status, String msg, List<Task> data) {
+            public void onSuccess(int status, String msg, final List<Task> data) {
 
                 TodayFragment.this.tasks.clear();
 
@@ -111,10 +122,13 @@ public class TodayFragment extends Fragment {
                     @Override
                     public void run() {
                         taskAdapter.notifyDataSetChanged();
+
+                        if(dialog!=null){
+                            dialog.cancel();
+                        }
+
                     }
                 });
-
-
             }
 
             @Override
@@ -124,6 +138,10 @@ public class TodayFragment extends Fragment {
                     @Override
                     public void run() {
                         Toast.makeText(getActivity(),"加载数据失败",Toast.LENGTH_SHORT).show();
+
+                        if(dialog!=null){
+                            dialog.cancel();
+                        }
                     }
                 });
 
@@ -131,8 +149,6 @@ public class TodayFragment extends Fragment {
         });
 
         taskDao.findTodayTasks();
-
-
     }
 
 }

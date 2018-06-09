@@ -15,6 +15,9 @@ import cc.siriuscloud.xiaoy.AppVessel;
 import cc.siriuscloud.xiaoy.R;
 import cc.siriuscloud.xiaoy.domain.User;
 
+/**
+ * 个人信息窗口
+ */
 public class PersonalFragment extends Fragment {
 
 

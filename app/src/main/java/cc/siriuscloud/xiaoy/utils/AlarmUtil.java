@@ -13,6 +13,9 @@ import java.util.TimeZone;
 
 import cc.siriuscloud.xiaoy.AlarmActivity;
 
+/**
+ * 闹钟工具类
+ */
 public class AlarmUtil {
 
 
@@ -60,7 +63,7 @@ public class AlarmUtil {
      *
      * @param triggerAtTime 启动时间
      */
-    public static void addAlarmEs(Context context, long triggerAtTime, Date date) {
+    public static void addAlarmEs(Context context, Intent intent,long triggerAtTime, Date date) {
 
 //        目标时间-当前时间 得到 距离目前的闹钟时间
 
@@ -85,7 +88,7 @@ public class AlarmUtil {
         Log.d(TAG, "添加闹钟.........esClockTime："+esClockTime);
 
 
-        Intent intent = new Intent(context, AlarmActivity.class);
+
         String string = MyDateUtil.dateToString(date);
         intent.setAction(string);
 

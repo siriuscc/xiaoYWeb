@@ -1,5 +1,6 @@
 package cc.siriuscloud.xiaoy.view;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -22,6 +23,10 @@ import cc.siriuscloud.xiaoy.domain.Task;
 import cc.siriuscloud.xiaoy.utils.MyDateUtil;
 import cc.siriuscloud.xiaoy.viewconponent.TaskExpandableListAdapter;
 
+
+/**
+ * 任务窗口，也就是所有任务
+ */
 public class PlanFragment extends Fragment {
 
 
@@ -31,6 +36,9 @@ public class PlanFragment extends Fragment {
 
     private List<Date> groupList = new ArrayList<>();
     private List<List<Task>> childList = new ArrayList<>();
+
+    private ProgressDialog dialog;      //遮蔽框
+
 
 
     private TaskExpandableListAdapter taskExpandableListAdapter;
@@ -59,6 +67,16 @@ public class PlanFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+
+        //显示遮蔽框
+        dialog = new ProgressDialog(getActivity());
+        dialog.setTitle("请稍候");
+        dialog.setMessage("提交中......");
+        dialog.setCancelable(false);
+
+        dialog.show();
+
 
 
         expandList = getActivity().findViewById(R.id.expand_list);
@@ -101,6 +119,10 @@ public class PlanFragment extends Fragment {
                     public void run() {
 
                         taskExpandableListAdapter.notifyDataSetChanged();
+
+                        if(dialog!=null){
+                            dialog.cancel();
+                        }
                     }
                 });
             }
@@ -113,6 +135,9 @@ public class PlanFragment extends Fragment {
                     public void run() {
 
                         Toast.makeText(getActivity(), "获取信息失败", Toast.LENGTH_SHORT).show();
+                        if(dialog!=null){
+                            dialog.cancel();
+                        }
                     }
                 });
 
