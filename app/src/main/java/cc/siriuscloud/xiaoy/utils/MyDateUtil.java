@@ -122,10 +122,18 @@ public class MyDateUtil {
         if (null == d1 || null == d2)
             return false;
         //return getOnlyDate(d1).equals(getOnlyDate(d2));
-        Calendar cal1 = Calendar.getInstance();
+        Calendar cal1 = Calendar.getInstance(TimeZone.getTimeZone("GMT+8"));
         cal1.setTime(d1);
-        Calendar cal2 = Calendar.getInstance();
+        Calendar cal2 = Calendar.getInstance(TimeZone.getTimeZone("GMT+8"));
         cal2.setTime(d2);
+
+
+//
+//        Log.d(TAG,"cal1 ......."+MyDateUtil.dateGMT8ToString(d1)+" | "+cal1.get(Calendar.ERA)+" | "+cal1.get(Calendar.YEAR)+" | "+cal1.get(Calendar.DAY_OF_YEAR));
+//        Log.d(TAG,"cal2......."+MyDateUtil.dateGMT8ToString(d2)+" | "+cal2.get(Calendar.ERA)+" | "+cal2.get(Calendar.YEAR)+" | "+cal2.get(Calendar.DAY_OF_YEAR));
+//        Log.d(TAG,"\n###############################\n");
+
+
         return cal1.get(Calendar.ERA) == cal2.get(Calendar.ERA) && cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
                 cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR);
     }

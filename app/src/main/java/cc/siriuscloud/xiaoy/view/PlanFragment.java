@@ -148,16 +148,26 @@ public class PlanFragment extends Fragment {
     }
 
 
-
-
+    /**
+     * 将数据转为list
+     * @param tasks
+     */
     private void initData(List<Task> tasks) {
 
+        //清空数据
+        groupList.clear();
+        childList.clear();
+
+        //如果数据为空
         if (tasks.size() < 1) {
             return;
         }
 
+        //获取到第一个数据
         Task preTask = tasks.get(0);
+        //得到当前分组
         Date currentGroup = preTask.getStartTime();
+
         groupList.add(currentGroup);
 
         List<Task> currentTaskList = new ArrayList<>();
@@ -173,6 +183,7 @@ public class PlanFragment extends Fragment {
             } else {
                 //开始一个新的归类
                 currentGroup = task.getStartTime();
+                preTask=task;
 
                 groupList.add(currentGroup);
                 //把字列表添加到list
