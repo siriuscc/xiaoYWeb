@@ -31,7 +31,7 @@ public class UserMsController {
 
 
         //构造分页容器
-        PageBean<User> page = new PageBean<User>();
+        PageBean<User> page = new PageBean<>();
         if(null!=pageNum){
             page.setPageNum(pageNum);
         }

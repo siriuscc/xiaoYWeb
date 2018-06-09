@@ -12,10 +12,6 @@ public class PageBean<T> {
 	}
 
 
-
-
-
-
 	//必要数据
 	private int pageNum;	//当前第几页
 	private int pageSize;	//每页显示数据条数
@@ -34,7 +30,8 @@ public class PageBean<T> {
 	public static final int def_indexRang=10;
 	public static final int def_pageSize=10;
 	
-	
+
+
 	//封装数据集
 	private List<T> data;
 	
@@ -44,10 +41,6 @@ public class PageBean<T> {
 		this.pageNum = 1;	
 		this.pageSize = def_pageSize;
 	}
-	
-	
-	
-	
 	
 	
 	/**
