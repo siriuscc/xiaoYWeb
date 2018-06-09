@@ -1,10 +1,13 @@
 package cc.siriuscloud.xiaoy.utils;
 
+import android.util.Log;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 
 public class MyDateUtil {
@@ -18,6 +21,11 @@ public class MyDateUtil {
     private static final String DATA_DAY_PATTERN = "YYYY-MM-dd";
 
 
+    /**
+     * 日期的转换默认GMT8
+     * @param obj
+     * @return
+     */
     public static String format(Object obj) {
 
         if (obj == null) {
@@ -25,7 +33,7 @@ public class MyDateUtil {
         }
 
         if (obj instanceof Date) {
-            return dateToString((Date) obj);
+            return dateGMT8ToString((Date) obj);
         }
 
         if (obj instanceof Integer) {
@@ -37,19 +45,29 @@ public class MyDateUtil {
     }
 
 
-
     /**
+     * 提交上去的时候要设置时区，回来不需要设置时区
      * "HH:mm"
      *
      * @param date
      * @return
      */
+    public static String dateGMT8ToString(Date date) {
+
+        DateFormat fmt = new SimpleDateFormat(DATA_PATTERN);
+        fmt.setTimeZone(TimeZone.getTimeZone("GMT+8"));
+
+        return fmt.format(date);
+    }
+
+
     public static String dateToString(Date date) {
 
         DateFormat fmt = new SimpleDateFormat(DATA_PATTERN);
 
         return fmt.format(date);
     }
+
 
 
     /**
@@ -79,6 +97,7 @@ public class MyDateUtil {
     public static String dateToDayTime(Date date) {
 
         DateFormat fmt = new SimpleDateFormat(TIME_PATTERN);
+        fmt.setTimeZone(TimeZone.getTimeZone("GMT+8"));
 
         return fmt.format(date);
     }
@@ -112,13 +131,39 @@ public class MyDateUtil {
     }
 
 
-    public static void main(String[] args) {
+    public static Date DateToGTU0(Date date) {
 
 
-//        System.out.println(dateToString(Calendar.getInstance().getTime()));
-//        System.out.println(dateToString(Calendar.getInstance().getTime()));
+        String s = dateToString(date);
+
+        DateFormat fmt = new SimpleDateFormat(DATA_PATTERN);
+//        fmt.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
+
+        try {
+            Date parse = fmt.parse(s);
+
+            return parse;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return null;
 
 
     }
+
+
+    public static void main(String[] args) {
+
+
+        System.out.println(System.currentTimeMillis());
+
+        Date date = new Date();
+        System.out.println(date.getTime());
+
+
+        //Date 是和时区不相关的，依赖的是全局的时区对象
+
+}
 
 }

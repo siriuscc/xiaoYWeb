@@ -44,7 +44,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="安卓作业" />
+                     />
             </LinearLayout>
 
 
@@ -75,7 +75,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="2018-5-20 12:00" />
+                     />
             </LinearLayout>
 
             <View
@@ -110,7 +110,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="2018-5-20 12:00" />
+                     />
             </LinearLayout>
 
             <View
@@ -146,7 +146,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="15分钟前" />
+                     />
             </LinearLayout>
 
 
@@ -181,7 +181,7 @@
                     android:layout_weight="1"
                     android:lines="8"
                     android:padding="20dp"
-                    android:text="安卓作业记得写" />
+                     />
             </LinearLayout>
 
             <Button

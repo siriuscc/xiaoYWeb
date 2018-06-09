@@ -32,6 +32,8 @@ import cc.siriuscloud.xiaoy.domain.UserLocation;
 import cc.siriuscloud.xiaoy.utils.AlarmUtil;
 import cc.siriuscloud.xiaoy.view.LoginFragment;
 
+import static cc.siriuscloud.xiaoy.utils.MyDateUtil.DateToGTU0;
+
 public class LoginActivity extends AppCompatActivity {
 
 
@@ -70,6 +72,10 @@ public class LoginActivity extends AppCompatActivity {
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             permissionList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
         }
+        if (ContextCompat.checkSelfPermission(LoginActivity.this,
+                Manifest.permission.SET_TIME_ZONE) != PackageManager.PERMISSION_GRANTED) {
+            permissionList.add(Manifest.permission.SET_TIME_ZONE);
+        }
 
         if (!permissionList.isEmpty()) {
             String[] permissions = permissionList.toArray(new String[permissionList.size()]);
@@ -78,6 +84,25 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             Log.d(TAG, "权限完备");
         }
+
+
+//        DateToGTU0(new Date());
+
+        //系统当前时间
+        long timeMillis = System.currentTimeMillis();
+
+        Calendar instance = Calendar.getInstance();
+
+        long timeInMillis = instance.getTimeInMillis();
+
+
+
+
+
+
+        Log.d("TAG","...........timeMillis:"+timeMillis);
+        Log.d("TAG","...........timeInMillis:"+timeInMillis);
+
 
 
 //        createAlarm();
@@ -202,8 +227,6 @@ public class LoginActivity extends AppCompatActivity {
                     });
                 }
             }).commitLocation(userLocation);
-
-
 
 
             runOnUiThread(new Runnable() {

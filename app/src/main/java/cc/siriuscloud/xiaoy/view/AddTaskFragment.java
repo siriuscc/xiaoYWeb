@@ -23,6 +23,7 @@ import com.jaredrummler.materialspinner.MaterialSpinner;
 
 import java.util.Calendar;
 import java.util.LinkedHashMap;
+import java.util.TimeZone;
 
 import cc.siriuscloud.xiaoy.AlarmActivity;
 import cc.siriuscloud.xiaoy.AppVessel;
@@ -46,8 +47,8 @@ public class AddTaskFragment extends Fragment {
     private ProgressDialog dialog;
 
 
-    private Calendar startCalendar = Calendar.getInstance();         // 开始时间
-    private Calendar endCalendar = Calendar.getInstance();           //结束时间
+    private Calendar startCalendar = Calendar.getInstance(TimeZone.getTimeZone("GMT+8"));         // 开始时间
+    private Calendar endCalendar = Calendar.getInstance(TimeZone.getTimeZone("GMT+8"));           //结束时间
 
     private LinearLayout startTimeLayout;       // 开始时间点的布局
     private TextView startDateTxt;              //开始日期
@@ -91,6 +92,13 @@ public class AddTaskFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        //显示遮蔽框
+        dialog = new ProgressDialog(getActivity());
+        dialog.setTitle("请稍候");
+        dialog.setMessage("提交中......");
+        dialog.setCancelable(false);
+
+
         initPicker();
 
         contentEdit = getActivity().findViewById(R.id.content_edit);
@@ -124,17 +132,15 @@ public class AddTaskFragment extends Fragment {
         submitTaskBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog = new ProgressDialog(getActivity());
 
-                dialog.setTitle("添加任务");
-                dialog.setMessage("提交中......");
+                dialog.show();
 
+                //获取封装数据
                 final Task task = extractTask();
-
+                //打印一把
                 Log.d(TAG, "..............task is ......" + task);
 
-
-                TaskDao taskDao = new TaskDao(new DaoCallBack() {
+                new TaskDao(new DaoCallBack() {
                     @Override
                     public void onSuccess(int status, String msg, Object data) {
 
@@ -142,21 +148,31 @@ public class AddTaskFragment extends Fragment {
                             dialog.cancel();
                         }
 
-
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 Toast.makeText(getActivity(), "添加成功", Toast.LENGTH_SHORT).show();
 
+                                Log.d(TAG, "........添加成功：" + task.toString());
 
+                                //启动时间
                                 long startTime = task.getStartTime().getTime();
+
+                                Calendar startTimeCalendar = Calendar.getInstance(TimeZone.getTimeZone("GMT+8"));
+                                startTimeCalendar.setTime(task.getStartTime());
+                                Log.d(TAG,"....................startTime:"+startTime);
+                                Log.d(TAG,"....................startTimeCalendar:"+startTimeCalendar.getTimeInMillis());
+
+
                                 long delayMin = task.getDelayMin() * 1000 * 60L;
 
-                                long triggerAtTime=startTime+delayMin;
+                                long triggerAtTime = startTime + delayMin;
 
+                                Log.d(TAG, "..闹钟UI...........");
 
                                 //TODO: 添闹钟
-                                AlarmUtil.addAlarm(getActivity(),triggerAtTime,task.getStartTime());
+
+                                AlarmUtil.addAlarmEs(getActivity(), triggerAtTime, task.getStartTime());
 
                             }
                         });
@@ -174,8 +190,7 @@ public class AddTaskFragment extends Fragment {
                         });
 
                     }
-                });
-                taskDao.addTaskDao(task);
+                }).addTaskDao(task);
             }
         });
 
@@ -188,6 +203,9 @@ public class AddTaskFragment extends Fragment {
         User user = AppVessel.get("user");
 
         task.setUserId(user.getUserId());
+
+        Log.d(TAG,"extractTask: this.startCalendar.getTimeInMillis:"+this.startCalendar.getTimeInMillis());
+
         task.setStartTime(this.startCalendar.getTime());
         task.setEndTime(this.endCalendar.getTime());
         task.setContent(this.contentEdit.getText().toString());
@@ -197,7 +215,7 @@ public class AddTaskFragment extends Fragment {
             this.delayMin = 0;
         }
         task.setDelayMin(this.delayMin);
-        Log.d(TAG, task + "");
+        Log.d(TAG, "extractTask:"+task + "");
 
         return task;
     }
@@ -230,8 +248,8 @@ public class AddTaskFragment extends Fragment {
                         startDateTxt.setText(dateString);
                         startTimeTxt.setText(timeString);
 
-                        startCalendar = Calendar.getInstance();
-                        startCalendar.set(year, month, day, hour, minute);
+                        startCalendar =calendar;
+//                        startCalendar.set(year, month, day, hour, minute);
 
                         Log.d(TAG, "...............calendar........" + startCalendar.getTimeInMillis());
                     }
@@ -265,13 +283,12 @@ public class AddTaskFragment extends Fragment {
                         String dateString = String.format("%04d年%02d月%02d日", year, month + 1, day);
                         String timeString = String.format("%02d:%02d", hour, minute);
 
-                        endCalendar = Calendar.getInstance();
-                        endCalendar.set(year, month, day, hour, minute);
-
+                        endCalendar = calendar;
                         endDateTxt.setText(dateString);
                         endTimeTxt.setText(timeString);
                     }
                 });
+
 
                 //调用show方法弹出对话框
                 // 第一个参数为FragmentManager对象

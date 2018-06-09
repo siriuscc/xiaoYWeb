@@ -7,6 +7,7 @@ import android.support.v4.app.DialogFragment;
 import android.widget.DatePicker;
 
 import java.util.Calendar;
+import java.util.TimeZone;
 
 /**
  * @auther sirius
@@ -20,11 +21,13 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
     private DataCallBack dataCallBack;
 
 
-    private Calendar calendar=Calendar.getInstance();
+    private Calendar calendar=Calendar.getInstance(TimeZone.getTimeZone("GMT+8"));
 
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+
+
 
         //得到Calendar类实例，用于获取当前时间
 

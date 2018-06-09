@@ -108,6 +108,9 @@ public class TaskDao {
 
                 Message<Task> message = new Message<Task>().jsonBuildData(jsonData,Task.class);
 
+                Log.d(TAG,"............."+message);
+
+
                 List<Task> data = message.getData();
 
                 if (message.getData() != null) {

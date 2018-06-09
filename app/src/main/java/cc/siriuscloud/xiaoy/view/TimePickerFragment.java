@@ -9,9 +9,11 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.util.Calendar;
+import java.util.TimeZone;
 
 //实现OnTimeSetListener接口
 public class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener{
+
 
 
     private int year;
@@ -31,7 +33,7 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         //新建日历类用于获取当前时间
-        Calendar calendar=Calendar.getInstance();
+        Calendar calendar=Calendar.getInstance(TimeZone.getTimeZone("GMT+8"));
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
         //返回TimePickerDialog对象
