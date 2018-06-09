@@ -1,6 +1,7 @@
 package cc.siriuscloud.xiaoy.dao;
 
 import cc.siriuscloud.xiaoy.domain.UserLocation;
+import cc.siriuscloud.xiaoy.domain.vo.UserLocationVo;
 
 import java.util.List;
 
@@ -23,4 +24,9 @@ public interface UserLocationMapper {
      * @return
      */
     List<UserLocation> selectAllLast();
+
+    List<UserLocationVo> selectLastAllUserLocation();
+
+
+
 }

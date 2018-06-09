@@ -56,11 +56,8 @@
                 <div class="card">
                     <div class="card-header" data-background-color="blue">
                         <h4 class="title">近期异常</h4>
-                        <p class="category">只维护最近20个异常，详细异常请前往服务器查看
-                            <%--<a target="_blank" href="https://github.com/mouse0270">Robert McIntosh</a>. Please checkout--%>
-                            <%--the--%>
-                            <%--<a href="http://bootstrap-notify.remabledesigns.com/" target="_blank">full--%>
-                                <%--documentation.</a>--%>
+                        <p class="category">只维护最近20个异常，详细异常请前往服务器
+                            <a target="_blank" href="${pageContext.request.contextPath}/ms/notify/getNotify.do"> 查看</a>.
                         </p>
                     </div>
                     <div class="card-content">

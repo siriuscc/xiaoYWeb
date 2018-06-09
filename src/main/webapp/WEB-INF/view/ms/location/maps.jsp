@@ -150,71 +150,34 @@
         map.addControl(navigationControl);
 
 
-        // 添加定位控件
-        var geolocationControl = new BMap.GeolocationControl();
-        geolocationControl.addEventListener("locationSuccess", function (e) {
-            // 定位成功事件
-            var address = '';
-            address += e.addressComponent.province;
-            address += e.addressComponent.city;
-            address += e.addressComponent.district;
-            address += e.addressComponent.street;
-            address += e.addressComponent.streetNumber;
-            alert("当前定位地址为：" + address);
-        });
-        geolocationControl.addEventListener("locationError", function (e) {
-            // 定位失败事件
-            alert(e.message);
-        });
-        map.addControl(geolocationControl);
-
-
 
         // //添加点
         // addPoint(116.409, 39.918, "sirius");
 
 
 
-        $.getJSON("${pageContext.request.contextPath}/ms/location/getLocation.do", function(json){
+        $.getJSON("${pageContext.request.contextPath}/ms/location/getLastAllLocation.do", function(json){
             // console.log(json)
 
             var latitude=0
             var longitude=0;
             for(var i=0;i<json.length;++i){
-                console.log(json[i].latitude);
-                console.log(json[i].longitude);
+                // console.log(json[i].userLocation.latitude);
+                // console.log(json[i].userLocation.longitude);
+                //
+                // console.log(json[i].userLocation.locTime);
+                latitude+=json[i].userLocation.latitude;
 
-                console.log(json[i].locTime);
+                longitude+=json[i].userLocation.longitude;
 
-                latitude+=json[i].latitude;
-
-                longitude+=json[i].longitude;
-
-                addPoint(json[i].longitude, json[i].latitude, json[i].locTime);
-
+                addPoint(json[i].userLocation.longitude, json[i].userLocation.latitude, json[i].user.username);
             }
 
             latitude/=json.length;
             longitude/=json.length;
-            centerAndZoom(longitude,latitude, 12);
+            centerAndZoom(longitude,latitude, 15);
 
         });
-
-
-
-
-
-
-
-        var pointList = [];
-
-
-        // for (var i = 0; i < 200; ++i) {
-        //     pointList[i] = {x: 116.4 + Math.random(), y: 39.9 + Math.random()};
-        //
-        //     addPoint(pointList[i].x, pointList[i].y, i);
-        // }
-
 
     });
 </script>

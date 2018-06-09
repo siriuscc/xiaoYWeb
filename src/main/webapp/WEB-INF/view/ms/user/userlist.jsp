@@ -24,6 +24,21 @@
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet'
           type='text/css'>
+
+    <style>
+        .pagination li a{
+            border-radius: 0 !important;
+            background-color: #fff !important;
+            border: 1px solid #ddd !important;
+            padding: 6px 12px !important;
+            margin-left: -1px !important;
+            color: #337ab7 !important;
+
+            line-height: 1.42857143 !important;
+        }
+
+    </style>
+
 </head>
 
 <body>
@@ -73,7 +88,6 @@
                                     <tbody>
 
                                     <c:forEach items="${page.data}" var="user" varStatus="vs">
-
                                         <tr onclick="window.location.href='${pageContext.request.contextPath}/ms/user/tasklist.do?userId=${user.userId}'">
                                             <td>${vs.count}</td>
                                             <td>${user.username}</td>
@@ -81,34 +95,38 @@
                                             <td>${user.phone}</td>
                                         </tr>
                                     </c:forEach>
-
                                     </tbody>
                                 </table>
                             </div>
                         </div>
+                        <nav aria-label="Page navigation" style="text-align: center">
+                            <ul class="pagination">
+                                <c:if test="${page.pageNum+0 >1}">
+                                    <li>
+                                        <a href="${pageContext.request.contextPath}/ms/user/userlist.do?pageNum=${page.pageNum-1 }" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                </c:if>
+
+                                <c:forEach begin="${page.start }" end="${page.end }" var="v">
+                                    <li><a href="${pageContext.request.contextPath}/ms/user/userlist.do?pageNum=${v}">${v}</a></li>
+                                </c:forEach>
+
+                                <c:if test="${page.pageNum+0<page.totalPage}">
+                                    <li>
+                                        <a href="${pageContext.request.contextPath}/ms/user/userlist.do?&pageNum=${page.pageNum+1}" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </c:if>
+
+                            </ul>
+                        </nav>
                     </div>
 
                 </div>
 
-                <nav aria-label="Page navigation">
-                    <ul class="pagination">
-                        <li>
-                            <a href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li>
-                            <a href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
             </div>
         </div>
 

@@ -2,6 +2,7 @@ package cc.siriuscloud.xiaoy.controller.ms;
 
 
 import cc.siriuscloud.xiaoy.domain.UserLocation;
+import cc.siriuscloud.xiaoy.domain.vo.UserLocationVo;
 import cc.siriuscloud.xiaoy.service.UserLocationService;
 import cc.siriuscloud.xiaoy.utils.Message;
 import org.springframework.stereotype.Controller;
@@ -38,6 +39,19 @@ public class LocationMsController {
 
 
         return "ms/location/maps";
+    }
+
+
+    @RequestMapping("getLastAllLocation")
+    @ResponseBody
+    public List<UserLocationVo> getLastAllLocation(){
+
+        //查询所有定位
+
+        List<UserLocationVo> userLocations=userLocationService.findLastAllUserLocation();
+
+
+        return userLocations;
     }
 
 

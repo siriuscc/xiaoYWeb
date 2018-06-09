@@ -76,12 +76,12 @@
     <!--全局异常解析-->
     <bean class="cc.siriuscloud.xiaoy.MyHandlerExceptionResolver"></bean>
 	<!-- 拦截器栈  -->
-	<!--<mvc:interceptors>-->
-		<!--<mvc:interceptor>-->
-			<!--<mvc:mapping path="/*/*.do"/>-->
-			<!--<bean class="cc.siriusing.xiaoy.interceptor.LoginInterceptor"></bean>-->
-		<!--</mvc:interceptor>-->
-	<!--</mvc:interceptors>-->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/ms/*/*.do"/>
+			<bean class="cc.siriuscloud.xiaoy.interceptor.LoginMsInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
 
 
 	<!-- 测试时，视图资源开口 -->

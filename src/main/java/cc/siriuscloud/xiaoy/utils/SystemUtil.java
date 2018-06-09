@@ -7,6 +7,7 @@ import com.sun.management.ThreadMXBean;
 
 import java.lang.management.*;
 import java.util.List;
+import java.util.Map;
 
 
 public class SystemUtil {
@@ -22,6 +23,7 @@ public class SystemUtil {
     public static RuntimeMXBean getRuntimeMXBean(){
 
         //获取JVM的启动时间，版本及名称，当前进程ID
+
         return  ManagementFactory.getRuntimeMXBean();
     }
 
@@ -40,6 +42,7 @@ public class SystemUtil {
 
         //获取JVM内存使用状况，包括堆内存和非堆内存
         MemoryMXBean memoryMXBean = ManagementFactory.getMemoryMXBean();
+
 
         return memoryMXBean;
     }
@@ -60,10 +63,11 @@ public class SystemUtil {
         OperatingSystemMXBean operatingSystemMXBean = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
 
 
-        operatingSystemMXBean.getTotalPhysicalMemorySize();
-        operatingSystemMXBean.getFreePhysicalMemorySize();
-        operatingSystemMXBean.getSystemCpuLoad();
-        operatingSystemMXBean.getSystemLoadAverage();
+//        operatingSystemMXBean.getTotalPhysicalMemorySize();
+//        operatingSystemMXBean.getFreePhysicalMemorySize();
+//        operatingSystemMXBean.getSystemCpuLoad();
+//        operatingSystemMXBean.getSystemLoadAverage();
+
 
         return operatingSystemMXBean;
     }
@@ -103,6 +107,8 @@ public class SystemUtil {
 
         List<MemoryPoolMXBean> mpMBeanList = ManagementFactory.getMemoryPoolMXBeans();
 
+
+
         return mpMBeanList;
     }
 
@@ -139,6 +145,7 @@ public class SystemUtil {
 //        System.out.println("空闲内存量 ： " + free + "mb");
         int max = (int) (Runtime.getRuntime().maxMemory() /1024 / 1024);
 //        System.out.println("最大内存量 ： "  + max + "mb");
+
 
         return new RuntimeBean(total, free, max);
 
@@ -184,6 +191,22 @@ public class SystemUtil {
         }
     }
 
+
+    public static void main(String[] args) {
+
+        RuntimeMXBean mxBean = getRuntimeMXBean();
+
+
+        Map<String, String> systemProperties = mxBean.getSystemProperties();
+
+
+        for(String key:systemProperties.keySet()){
+
+            System.out.println(key+":"+systemProperties.get(key));
+        }
+
+
+    }
 
 
 }

@@ -8,9 +8,36 @@
         <result column="loc_time" jdbcType="TIMESTAMP" property="locTime"/>
         <result column="user_id" jdbcType="INTEGER" property="userId"/>
     </resultMap>
+
     <sql id="Base_Column_List">
     loc_id, latitude, longitude, loc_time, user_id
   </sql>
+
+    <!--voMap-->
+    <resultMap id="UserLocationVoResultMap" type="cc.siriuscloud.xiaoy.domain.vo.UserLocationVo">
+        <id column="loc_id" jdbcType="INTEGER" property="userLocation.locId"/>
+        <result column="latitude" jdbcType="REAL" property="userLocation.latitude"/>
+        <result column="longitude" jdbcType="REAL" property="userLocation.longitude"/>
+        <result column="loc_time" jdbcType="TIMESTAMP" property="userLocation.locTime"/>
+        <result column="user_id" jdbcType="INTEGER" property="userLocation.userId"/>
+        <result column="username" jdbcType="VARCHAR" property="user.username"/>
+        <result column="passwd" jdbcType="VARCHAR" property="user.passwd"/>
+        <result column="email" jdbcType="VARCHAR" property="user.email"/>
+        <result column="phone" jdbcType="VARCHAR" property="user.phone"/>
+    </resultMap>
+
+
+
+    <sql id="UserLocationVo_List">
+
+    loc_id, latitude, longitude, loc_time, xy_location.user_id ,
+    username,passwd,email,phone
+
+    </sql>
+
+
+
+
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
@@ -98,9 +125,20 @@
           where loc_id in(
             select max(loc_id) from xy_location group by user_id
           );
-
-
     </select>
+
+
+
+    <select id="selectLastAllUserLocation" resultMap="UserLocationVoResultMap">
+        select u.user_id,u.username,u.passwd,u.email,u.phone,
+        c.loc_id,c.latitude,c.longitude,c.loc_time
+        from xy_user u left join xy_location c
+        on u.user_id =c.user_id and c.loc_id in(
+        select max(loc_id)  from xy_location group by user_id
+        );
+    </select>
+
+
 
 
 </mapper>

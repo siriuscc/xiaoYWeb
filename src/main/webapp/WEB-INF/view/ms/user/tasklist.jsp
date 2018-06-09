@@ -38,8 +38,6 @@
             line-height: 1.42857143 !important;
         }
 
-
-
     </style>
 </head>
 
@@ -172,14 +170,13 @@
 
                                 <c:forEach begin="${page.start }" end="${page.end }" var="v">
                                     <li><a href="${pageContext.request.contextPath}/ms/user/tasklist.do?userId=${user.userId}&pageNum=${v}">${v}</a></li>
-
                                 </c:forEach>
 
 
                                 <c:if test="${page.pageNum+0<page.totalPage}">
 
                                     <li>
-                                        <a href="${pageContext.request.contextPath}/ms/user/tasklist.do?userId=${user.userId}&pageNum=&pageNum=${page.pageNum-1}" aria-label="Next">
+                                        <a href="${pageContext.request.contextPath}/ms/user/tasklist.do?userId=${user.userId}&pageNum=&pageNum=${page.pageNum+1}" aria-label="Next">
                                             <span aria-hidden="true">&raquo;</span>
                                         </a>
                                     </li>

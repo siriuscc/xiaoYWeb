@@ -32,6 +32,7 @@ public class SystemController {
 
         int sessionCount = SessionCounter.getSessionCount();
 
+
         map.addAttribute("sessionCount",sessionCount);
 
         map.addAttribute("gcmBeanList",gcmBeanList);

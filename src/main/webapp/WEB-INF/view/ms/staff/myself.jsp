@@ -97,7 +97,7 @@
                                 <p class="card-content">
                                     云对雨，雪对风，晚照对晴空......
                                 </p>
-                                <a href="#pablo" class="btn btn-primary btn-round">退出</a>
+                                <a href="${pageContext.request.contextPath}/ms/relogin.do" class="btn btn-primary btn-round">退出</a>
                             </div>
                         </div>
                     </div>
