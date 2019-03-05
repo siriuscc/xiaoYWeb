@@ -15,6 +15,10 @@ import cc.siriuscloud.xiaoy.R;
 import cc.siriuscloud.xiaoy.domain.Task;
 import cc.siriuscloud.xiaoy.utils.MyDateUtil;
 
+
+/**
+ * 单个任务item的适配器
+ */
 public class TaskAdapter extends ArrayAdapter<Task> {
 
     private static final String TAG = "TaskAdapter";

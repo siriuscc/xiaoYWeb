@@ -10,8 +10,10 @@ import java.util.Calendar;
 import java.util.TimeZone;
 
 /**
+ * 日期选择器碎片
+ * 默认时区GMT+8
  * @auther sirius
- * 日期选择器
+ *
  */
 public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener{
 
@@ -19,7 +21,6 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
     private TimePickerFragment timePicker = new TimePickerFragment();
 
     private DataCallBack dataCallBack;
-
 
     private Calendar calendar=Calendar.getInstance(TimeZone.getTimeZone("GMT+8"));
 

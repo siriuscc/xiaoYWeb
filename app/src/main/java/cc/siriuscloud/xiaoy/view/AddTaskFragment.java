@@ -1,9 +1,6 @@
 package cc.siriuscloud.xiaoy.view;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,7 +9,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -29,7 +25,6 @@ import cc.siriuscloud.xiaoy.AlarmActivity;
 import cc.siriuscloud.xiaoy.AppVessel;
 import cc.siriuscloud.xiaoy.MainActivity;
 import cc.siriuscloud.xiaoy.R;
-import cc.siriuscloud.xiaoy.broadcast.AlarmReceiver;
 import cc.siriuscloud.xiaoy.dao.DaoCallBack;
 import cc.siriuscloud.xiaoy.dao.TaskDao;
 import cc.siriuscloud.xiaoy.domain.Task;
@@ -37,12 +32,13 @@ import cc.siriuscloud.xiaoy.domain.User;
 import cc.siriuscloud.xiaoy.utils.AlarmUtil;
 
 
+/**
+ * 添加任务列表
+ */
 public class AddTaskFragment extends Fragment {
-
 
     private static final String TAG = "AddTaskFragment";
     private final LinkedHashMap<String, Integer> remindMap = new LinkedHashMap<>();
-
 
     private ProgressDialog dialog;
 
@@ -65,7 +61,6 @@ public class AddTaskFragment extends Fragment {
 
 
     private Button submitTaskBtn;                   //提交按钮
-
 
     private Integer delayMin;
 
@@ -138,7 +133,7 @@ public class AddTaskFragment extends Fragment {
                 //获取封装数据
                 final Task task = extractTask();
                 //打印一把
-                Log.d(TAG, "..............task is ......" + task);
+//                Log.d(TAG, "..............task is ......" + task);
 
                 new TaskDao(new DaoCallBack() {
                     @Override
@@ -160,17 +155,11 @@ public class AddTaskFragment extends Fragment {
 
                                 Calendar startTimeCalendar = Calendar.getInstance(TimeZone.getTimeZone("GMT+8"));
                                 startTimeCalendar.setTime(task.getStartTime());
-                                Log.d(TAG,"....................startTime:"+startTime);
-                                Log.d(TAG,"....................startTimeCalendar:"+startTimeCalendar.getTimeInMillis());
 
 
                                 long delayMin = task.getDelayMin() * 1000 * 60L;
 
                                 long triggerAtTime = startTime + delayMin;
-
-                                Log.d(TAG, "..闹钟UI...........");
-
-
 
                                 // 添闹钟
                                 Intent intent = new Intent(getActivity(), AlarmActivity.class);
@@ -203,6 +192,10 @@ public class AddTaskFragment extends Fragment {
 
     }
 
+    /**
+     * 封装页面数据为Task对象
+     * @return
+     */
     private Task extractTask() {
 
         Task task = new Task();
@@ -211,7 +204,7 @@ public class AddTaskFragment extends Fragment {
 
         task.setUserId(user.getUserId());
 
-        Log.d(TAG,"extractTask: this.startCalendar.getTimeInMillis:"+this.startCalendar.getTimeInMillis());
+//        Log.d(TAG,"extractTask: this.startCalendar.getTimeInMillis:"+this.startCalendar.getTimeInMillis());
 
         task.setStartTime(this.startCalendar.getTime());
         task.setEndTime(this.endCalendar.getTime());
@@ -222,7 +215,7 @@ public class AddTaskFragment extends Fragment {
             this.delayMin = 0;
         }
         task.setDelayMin(this.delayMin);
-        Log.d(TAG, "extractTask:"+task + "");
+//        Log.d(TAG, "extractTask:"+task + "");
 
         return task;
     }
@@ -258,7 +251,7 @@ public class AddTaskFragment extends Fragment {
                         startCalendar =calendar;
 //                        startCalendar.set(year, month, day, hour, minute);
 
-                        Log.d(TAG, "...............calendar........" + startCalendar.getTimeInMillis());
+//                        Log.d(TAG, "...............calendar........" + startCalendar.getTimeInMillis());
                     }
                 });
 
@@ -305,6 +298,5 @@ public class AddTaskFragment extends Fragment {
         });
 
     }
-
 
 }

@@ -17,9 +17,13 @@ import cc.siriuscloud.xiaoy.R;
 import cc.siriuscloud.xiaoy.dao.DaoCallBack;
 import cc.siriuscloud.xiaoy.dao.UserDao;
 import cc.siriuscloud.xiaoy.domain.User;
-import cc.siriuscloud.xiaoy.utils.Message;
+import cc.siriuscloud.xiaoy.domain.Message;
 import cc.siriuscloud.xiaoy.utils.MyStringUtils;
 
+
+/**
+ * 注册界面
+ */
 public class RegisterFragment extends Fragment {
 
 

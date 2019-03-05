@@ -29,7 +29,7 @@ import cc.siriuscloud.xiaoy.viewconponent.TaskAdapter;
 
 public class TodayFragment extends Fragment {
 
-    private static final String TAG="TodayFragment...";
+    private static final String TAG=TodayFragment.class.getName();
     private FloatingActionButton addTaskBtn;
 
     private ProgressDialog dialog;
@@ -76,7 +76,6 @@ public class TodayFragment extends Fragment {
             }
         });
 
-
         swipeRefreshLayout=this.getActivity().findViewById(R.id.swipe_refresh_layout);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 
@@ -91,12 +90,9 @@ public class TodayFragment extends Fragment {
         addTaskBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 ((MainActivity)getActivity()).replaceFragment(new AddTaskFragment());
-
             }
         });
-
     }
 
 
@@ -107,15 +103,12 @@ public class TodayFragment extends Fragment {
 
         User user=AppVessel.get("user");
 
-        user.getUserId();
-
-        TaskDao taskDao = new TaskDao(new DaoCallBack<List<Task>>() {
+        TaskDao todatTaskDao = new TaskDao(new DaoCallBack<List<Task>>() {
 
             @Override
             public void onSuccess(int status, String msg, final List<Task> data) {
 
                 TodayFragment.this.tasks.clear();
-
                 TodayFragment.this.tasks.addAll(data);
 
                 getActivity().runOnUiThread(new Runnable() {
@@ -148,7 +141,7 @@ public class TodayFragment extends Fragment {
             }
         });
 
-        taskDao.findTodayTasks();
+        todatTaskDao.findTodayTasks(user);
     }
 
 }

@@ -1,4 +1,4 @@
-package cc.siriuscloud.xiaoy.utils;
+package cc.siriuscloud.xiaoy.domain;
 
 
 import com.google.gson.Gson;
@@ -11,8 +11,11 @@ import org.json.JSONObject;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TimeZone;
 
+/**
+ * 消息封装bean
+ * @param <T>
+ */
 public class Message<T> implements Serializable {
 
     public static final int STATUS_ERROR = 1;
@@ -27,6 +30,8 @@ public class Message<T> implements Serializable {
     private String msg = null;
     private T item = null;
     private List<T> data = null;
+
+    //初始化gson 解析器
     private Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 
 

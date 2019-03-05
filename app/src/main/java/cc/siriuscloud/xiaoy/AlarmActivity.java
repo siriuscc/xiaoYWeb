@@ -11,6 +11,10 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+
+/**
+ * 闹钟活动
+ */
 public class AlarmActivity extends AppCompatActivity {
 
     private static final String TAG = AlarmActivity.class.getName();
@@ -63,10 +67,11 @@ public class AlarmActivity extends AppCompatActivity {
             }
         });
 
+        //响铃
         mediaPlayer = MediaPlayer.create(this, R.raw.in_call_alarm);
         mediaPlayer.setLooping(true);
         mediaPlayer.start();
-
+        //震动
         vibrator = (Vibrator) this.getSystemService(Service.VIBRATOR_SERVICE);
         vibrator.vibrate(new long[]{100, 10, 100, 600}, 0);
 

@@ -37,10 +37,15 @@ public class TaskFragment extends Fragment {
 
     private Button removeTaskBtn;
 
+    private AlertDialog alertDialog;
+    private TaskDao findTaskDao;
+    private TaskDao removeTaskDao;
+
 
     public TaskFragment() {
         // Required empty public constructor
 //        throw new RuntimeException("不应该使用空参数构造器");
+
     }
 
     /**
@@ -84,80 +89,16 @@ public class TaskFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-
         //绑定组件
-
         titleText = getActivity().findViewById(R.id.title_txt);
-
         startDateText = getActivity().findViewById(R.id.start_date_txt);
         endDateText = getActivity().findViewById(R.id.end_date_txt);
         delayMinText = getActivity().findViewById(R.id.delay_min_txt);
         contentText = getActivity().findViewById(R.id.content_txt);
         removeTaskBtn = getActivity().findViewById(R.id.remove_task_btn);
 
-
-        removeTaskBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
-                        .setTitle("Tip")
-                        .setMessage("真的要删去吗？？真的要删去吗？")
-                        .setCancelable(true)
-                        .setOnCancelListener(new DialogInterface.OnCancelListener() {
-                            @Override
-                            public void onCancel(DialogInterface dialog) {
-
-                                getActivity().runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Toast.makeText(getActivity(), "cancle??", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                            }
-                        })
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                                TaskDao taskDao = new TaskDao(new DaoCallBack() {
-                                    @Override
-                                    public void onSuccess(int status, String msg, Object data) {
-
-                                        getActivity().runOnUiThread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                Toast.makeText(getActivity(), "删除成功", Toast.LENGTH_SHORT).show();
-
-                                                //TODO 这里本来应该回退到上一窗口，回退功能还没写，算了
-                                                ((MainActivity) getActivity()).replaceFragment(new TodayFragment());
-
-                                            }
-                                        });
-
-                                    }
-
-                                    @Override
-                                    public void onError(int status, String msg, Object data) {
-
-                                    }
-                                });
-
-                                //删除
-                                taskDao.removeTask(taskId);
-
-                            }
-                        }).create();
-
-                alertDialog.show();
-
-
-            }
-        });
-
-
-        //获取数据
-        TaskDao taskDao = new TaskDao(new DaoCallBack<Task>() {
+        //获取数据 的回调
+        findTaskDao = new TaskDao(new DaoCallBack<Task>() {
 
             @Override
             public void onSuccess(int status, String msg, final Task task) {
@@ -170,7 +111,6 @@ public class TaskFragment extends Fragment {
                         startDateText.setText(MyDateUtil.dateToString(task.getStartTime()));
                         endDateText.setText(MyDateUtil.dateToString(task.getEndTime()));
                         delayMinText.setText(task.getDelayMin() + "分钟前");
-
                         contentText.setText(task.getContent());
                     }
                 });
@@ -187,10 +127,58 @@ public class TaskFragment extends Fragment {
                     }
                 });
             }
-
         });
 
+        //删除任务的具体回调
+        removeTaskDao = new TaskDao(new DaoCallBack() {
+            @Override
+            public void onSuccess(int status, String msg, Object data) {
 
-        taskDao.findTaskById(taskId);
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getActivity(), "删除成功", Toast.LENGTH_SHORT).show();
+
+                        ((MainActivity) getActivity()).replaceFragment(new TodayFragment());
+                    }
+                });
+
+            }
+
+            @Override
+            public void onError(int status, String msg, Object data) {
+
+            }
+        });
+
+        // 提示框
+        alertDialog = new AlertDialog.Builder(getActivity())
+                .setTitle("Tip")
+                .setMessage("真的要删去吗？？真的要删去吗？")
+                .setCancelable(true)
+                .setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialog) {
+
+                    }
+                })
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //删除
+                        removeTaskDao.removeTask(taskId);
+                    }
+                }).create();
+
+
+        //删除按钮
+        removeTaskBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.show();
+            }
+        });
+
+        findTaskDao.findTaskById(taskId);
     }
 }

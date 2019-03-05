@@ -5,7 +5,7 @@ import android.util.Log;
 import java.io.IOException;
 
 import cc.siriuscloud.xiaoy.domain.User;
-import cc.siriuscloud.xiaoy.utils.Message;
+import cc.siriuscloud.xiaoy.domain.Message;
 import cc.siriuscloud.xiaoy.utils.HttpUtil;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -14,6 +14,9 @@ import okhttp3.Response;
 
 import static cc.siriuscloud.xiaoy.AppVessel.BASE_URL;
 
+/**
+ * 用户相关的 Data Access Object
+ */
 public class UserDao {
 
     private static final String URL_LOGIN = BASE_URL+"/user/login.do";

@@ -8,16 +8,16 @@ import java.util.HashMap;
  */
 public class AppVessel {
 
-    public static String BASE_URL="http://10.0.2.2:8080";
+//    public static final String BASE_URL="http://10.0.2.2:8080";
 
-//    public static String BASE_URL="http://xiaoy.siriuscloud.cc:8080";
-
-
-//    public static final String BASE_URL="http://xiaoy.siriuscloud:8080";
+    public static final String BASE_URL="http://xiaoy.siriuscloud.cc:8080";
 
 
     private static HashMap<String,Object> appMap=new HashMap<>();
 
+    /**
+     * 全局静态类，禁止实例化
+     */
     private AppVessel() {
     }
 

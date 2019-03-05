@@ -38,7 +38,6 @@ public class LoginFragment extends Fragment {
     private TextView registerBtn;
 
 
-
     private AppCompatButton loginBtn;
 
     private ProgressDialog dialog;
@@ -105,9 +104,7 @@ public class LoginFragment extends Fragment {
                         }
                         //保存数据
                         AppVessel.put("user",user);
-                        Log.d(TAG,"...........AppVessel.put(\"user,\""+user+");");
 
-                        Log.d(TAG,"login status:.........."+status);
 
                         ((LoginActivity)getActivity()).setEmailCache(email);
 
@@ -122,11 +119,9 @@ public class LoginFragment extends Fragment {
                         //提交地理位置数据
                         ((LoginActivity)getActivity()).requestLocation();
 
-
                         Intent intent = new Intent(getActivity(), MainActivity.class);
 
                         getActivity().startActivity(intent);
-
                     }
 
                     @Override

@@ -198,6 +198,9 @@ public class PlanFragment extends Fragment {
 
     }
 
+    /**
+     * 测试用，答应数据
+     */
     private void printData(){
 
 

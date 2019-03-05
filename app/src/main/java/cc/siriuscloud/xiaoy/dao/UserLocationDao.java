@@ -5,15 +5,17 @@ import android.util.Log;
 import java.io.IOException;
 
 import cc.siriuscloud.xiaoy.AppVessel;
-import cc.siriuscloud.xiaoy.domain.User;
 import cc.siriuscloud.xiaoy.domain.UserLocation;
 import cc.siriuscloud.xiaoy.utils.HttpUtil;
-import cc.siriuscloud.xiaoy.utils.Message;
+import cc.siriuscloud.xiaoy.domain.Message;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.Response;
 
+/**
+ * 定位相关
+ */
 public class UserLocationDao {
 
     private String TAG=UserLocation.class.getName();

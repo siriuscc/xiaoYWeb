@@ -12,10 +12,18 @@ import java.util.Date;
 import java.util.UUID;
 import java.util.logging.SimpleFormatter;
 
+
+/**
+ * 字符串工具类
+ */
 public class MyStringUtils {
 
 
-
+	/**
+	 * 字符床转MD'5
+	 * @param value
+	 * @return
+	 */
 	public static String String2Md5(String value){
 		
 		
@@ -42,8 +50,11 @@ public class MyStringUtils {
 		}
 		
 	}
-	
-	
+
+	/**
+	 * 获取UUID
+	 * @return
+	 */
 	public static String getUUID(){
 		
 		return UUID.randomUUID().toString().replaceAll("-", "");

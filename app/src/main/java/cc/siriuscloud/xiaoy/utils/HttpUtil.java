@@ -7,6 +7,9 @@ import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
+/**
+ * 底层用OkHttp 完成网络访问
+ */
 public class HttpUtil {
 
 

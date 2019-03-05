@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        Log.d(TAG, "...........MainActivity.onCreate");
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -73,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
             public void onTabSelected(int position) {
                 //选择触发
 
-                Log.d(TAG, "onTabSelected.....position：" + position);
+//                Log.d(TAG, "onTabSelected.....position：" + position);
 
                 switch (position) {
                     case 0:
@@ -92,25 +91,23 @@ public class MainActivity extends AppCompatActivity {
             public void onTabUnselected(int position) {
 
                 //当点击了其他选项，本tab就失去焦点，触发
-                Log.d(TAG, "onTabUnselected.....position" + position);
+//                Log.d(TAG, "onTabUnselected.....position" + position);
 
             }
 
             @Override
             public void onTabReselected(int position) {
                 //重复点击同一个，释放触发
-                Log.d(TAG, "onTabReselected.....position" + position);
+//                Log.d(TAG, "onTabReselected.....position" + position);
             }
         });
 
-
-        //开启服务
-
-
-        Intent intent = new Intent(this, MyLocationService.class);
-        startService(intent);
     }
 
+    /**
+     * 切换窗口
+     * @param fragment
+     */
     public void replaceFragment(Fragment fragment) {
 
         FragmentManager fragmentManager = getSupportFragmentManager();

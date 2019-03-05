@@ -22,19 +22,16 @@ public class AlarmUtil {
     private static String TAG = "AlarmUtil";
 
     /**
-     * 添加一个闹钟，到点自动发送广播 #{AlarmReceiver.ALARM_RECEIVER_URI}
+     * 添加一个闹钟，到点触发Activity，这个方法没有用过，需要测试
      *
      * @param triggerAtTime 启动时间
      */
+    @Deprecated
     public static void addAlarm(Context context, long triggerAtTime, Date date) {
-
-        Log.d(TAG, "..添加闹钟...........triggerAtTime："+triggerAtTime+","+date );
-
 
         Intent intent = new Intent(context, AlarmActivity.class);
         String string = MyDateUtil.dateToString(date);
         intent.setAction(string);
-        Log.d(TAG, "..date.getTime..........." + date.getTime());
 
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 
@@ -42,15 +39,11 @@ public class AlarmUtil {
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
         AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
-        //设置时区
-//        manager.setTimeZone("Asia/Shanghai");
 
-        //TODO 只能转一下时间了
-        Log.d(TAG, "............系统时间......."+System.currentTimeMillis()+"...." + new Date(System.currentTimeMillis()));
-        Log.d(TAG, "............响铃时间........"+triggerAtTime + new Date(triggerAtTime));
+//        Log.d(TAG, "............系统时间......."+System.currentTimeMillis()+"...." + new Date(System.currentTimeMillis()));
+//        Log.d(TAG, "............响铃时间........"+triggerAtTime + new Date(triggerAtTime));
 
         //每次设置都是发送一个广播,到点发广播
-
         manager.set(AlarmManager.RTC_WAKEUP, triggerAtTime, pendingIntent);
     }
 
@@ -59,7 +52,7 @@ public class AlarmUtil {
     /**
      *
      * 相对时间
-     * 添加一个闹钟，到点自动发送广播 #{AlarmReceiver.ALARM_RECEIVER_URI}
+     * 添加一个闹钟，到点自动触发定时#{AlarmActivity}
      *
      * @param triggerAtTime 启动时间
      */

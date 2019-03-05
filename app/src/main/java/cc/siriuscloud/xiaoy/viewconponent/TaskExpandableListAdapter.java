@@ -14,6 +14,10 @@ import cc.siriuscloud.xiaoy.R;
 import cc.siriuscloud.xiaoy.domain.Task;
 import cc.siriuscloud.xiaoy.utils.MyDateUtil;
 
+
+/**
+ * 二级Task list的适配器
+ */
 public class TaskExpandableListAdapter extends BaseExpandableListAdapter {
 
 

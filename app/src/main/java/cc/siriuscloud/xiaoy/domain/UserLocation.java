@@ -2,12 +2,15 @@ package cc.siriuscloud.xiaoy.domain;
 
 import java.util.Date;
 
+/**
+ * 地理位置
+ */
 public class UserLocation {
     private Integer locId;
 
-    private Float latitude;
+    private Float latitude;     //纬度
 
-    private Float longitude;
+    private Float longitude;    //经度
 
     private Date locTime;
 

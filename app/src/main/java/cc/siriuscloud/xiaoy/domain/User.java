@@ -1,6 +1,9 @@
 package cc.siriuscloud.xiaoy.domain;
 
 
+/**
+ * 用户
+ */
 public class User {
     private Integer userId;
 

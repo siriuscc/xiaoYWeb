@@ -10,6 +10,9 @@ import java.util.Date;
 import java.util.TimeZone;
 
 
+/**
+ * 日期工具类
+ */
 public class MyDateUtil {
 
     private static final String TAG = "MyDateUtil";
@@ -46,9 +49,8 @@ public class MyDateUtil {
 
 
     /**
-     * 提交上去的时候要设置时区，回来不需要设置时区
-     * "HH:mm"
-     *
+     * 时区为GMT8
+     * 转换为 "YYYY-MM-dd HH:mm:ss"
      * @param date
      * @return
      */
@@ -60,37 +62,22 @@ public class MyDateUtil {
         return fmt.format(date);
     }
 
-
+    /**
+     * 转换为"YYYY-MM-dd HH:mm:ss";
+     * @param date
+     * @return
+     */
     public static String dateToString(Date date) {
 
         DateFormat fmt = new SimpleDateFormat(DATA_PATTERN);
-
         return fmt.format(date);
     }
 
 
 
     /**
-     * 转换日期到字符串
-     *
-     * @param string
-     * @return
-     */
-    public static Date stringToDate(String string) {
-
-        DateFormat fmt = new SimpleDateFormat(DATA_PATTERN);
-
-        try {
-            return fmt.parse(string);
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    /**
-     * "YYYY-MM-dd HH:mm:ss"
-     *
+     * 转换为 "HH:mm";
+     * 时区为GMT8
      * @param date
      * @return
      */
@@ -104,7 +91,7 @@ public class MyDateUtil {
 
 
     /**
-     * "YYYY-MM-dd"
+     * 转换为形如"YYYY-MM-dd" 的字符串
      *
      * @param date
      * @return
@@ -117,7 +104,13 @@ public class MyDateUtil {
 
     }
 
-
+    /**
+     * 判断两个日期 的年月日是否相同
+     * 默认时区 GMT+8
+     * @param d1
+     * @param d2
+     * @return
+     */
     public static boolean sameDate(Date d1, Date d2) {
         if (null == d1 || null == d2)
             return false;
@@ -128,46 +121,32 @@ public class MyDateUtil {
         cal2.setTime(d2);
 
 
-//
-//        Log.d(TAG,"cal1 ......."+MyDateUtil.dateGMT8ToString(d1)+" | "+cal1.get(Calendar.ERA)+" | "+cal1.get(Calendar.YEAR)+" | "+cal1.get(Calendar.DAY_OF_YEAR));
-//        Log.d(TAG,"cal2......."+MyDateUtil.dateGMT8ToString(d2)+" | "+cal2.get(Calendar.ERA)+" | "+cal2.get(Calendar.YEAR)+" | "+cal2.get(Calendar.DAY_OF_YEAR));
-//        Log.d(TAG,"\n###############################\n");
-
-
         return cal1.get(Calendar.ERA) == cal2.get(Calendar.ERA) && cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
                 cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR);
     }
 
 
-    public static Date DateToGTU0(Date date) {
-
-
-        String s = dateToString(date);
-
-        DateFormat fmt = new SimpleDateFormat(DATA_PATTERN);
-//        fmt.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
-
-        try {
-            Date parse = fmt.parse(s);
-
-            return parse;
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-
-
-    }
+//    public static Date DateToGTU0(Date date) {
+//
+//
+//        String s = dateToString(date);
+//
+//        DateFormat fmt = new SimpleDateFormat(DATA_PATTERN);
+////        fmt.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
+//
+//        try {
+//            Date parse = fmt.parse(s);
+//
+//            return parse;
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return null;
+//    }
 
 
     public static void main(String[] args) {
-
-
-        System.out.println(System.currentTimeMillis());
-
-        Date date = new Date();
-        System.out.println(date.getTime());
 
 
         //Date 是和时区不相关的，依赖的是全局的时区对象

@@ -12,7 +12,7 @@ import cc.siriuscloud.xiaoy.AppVessel;
 import cc.siriuscloud.xiaoy.domain.Task;
 import cc.siriuscloud.xiaoy.domain.User;
 import cc.siriuscloud.xiaoy.utils.HttpUtil;
-import cc.siriuscloud.xiaoy.utils.Message;
+import cc.siriuscloud.xiaoy.domain.Message;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -20,6 +20,10 @@ import okhttp3.Response;
 
 import static cc.siriuscloud.xiaoy.AppVessel.BASE_URL;
 
+/**
+ * 任务的Dao层，负责完成远程数据的发送和接受，视图的修改由#{DaoCallBack.class} 注入
+ * 注意线程的问题，回调方法在子线程中执行，所以不能直接修改视图
+ */
 public class TaskDao {
 
     public TaskDao(DaoCallBack daoCallBack) {
@@ -86,9 +90,8 @@ public class TaskDao {
     }
 
 
-    public void findTodayTasks() {
+    public void findTodayTasks(User user) {
 
-        User user = AppVessel.get("user");
 
         FormBody formBody = HttpUtil.mappingFormBody(user);
 

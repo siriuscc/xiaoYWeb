@@ -2,6 +2,9 @@ package cc.siriuscloud.xiaoy.domain;
 
 import java.util.Date;
 
+/**
+ * 记事本功能
+ */
 public class Note {
 
 

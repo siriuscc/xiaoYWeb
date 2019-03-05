@@ -2,6 +2,9 @@ package cc.siriuscloud.xiaoy.domain;
 
 import java.util.Date;
 
+/**
+ * 任务
+ */
 public class Task {
     private Integer taskId;
 
