@@ -22,7 +22,7 @@ public class LocationMsController {
     UserLocationService userLocationService;
 
 
-    @RequestMapping("getLocation")
+    @RequestMapping("/getLocation")
     @ResponseBody
     public List<UserLocation> getLocation(){
 
@@ -34,7 +34,7 @@ public class LocationMsController {
         return userLocations;
     }
 
-    @RequestMapping("maps")
+    @RequestMapping("/maps")
     public String maps(){
 
 
@@ -42,7 +42,7 @@ public class LocationMsController {
     }
 
 
-    @RequestMapping("getLastAllLocation")
+    @RequestMapping("/getLastAllLocation")
     @ResponseBody
     public List<UserLocationVo> getLastAllLocation(){
 

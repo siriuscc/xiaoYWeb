@@ -11,17 +11,13 @@ public class StaffMsController {
 
 
 
-    @RequestMapping("myself")
+    @RequestMapping("/myself")
     public String myself(){
-
-
 
 
         return "ms/staff/myself";
 
     }
-
-
 
 
 

@@ -13,12 +13,12 @@ import java.lang.management.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("ms/system")
+@RequestMapping("/ms/system")
 public class SystemController {
 
 
 
-    @RequestMapping("dashboard")
+    @RequestMapping("/dashboard")
     public String dashboard(ModelMap map, HttpSession session){
 
         List<GarbageCollectorMXBean> gcmBeanList = SystemUtil.getGCMBeanList();

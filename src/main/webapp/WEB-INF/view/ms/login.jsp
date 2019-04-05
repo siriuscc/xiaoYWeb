@@ -52,20 +52,20 @@
 
     <div class="col-sm-4 login-box">
 
-        <h3 class="col-sm-8 col-sm-offset-2">小Y 后台管理系统</h3>
+        <h3 style="text-align: center;">小Y 后台管理系统</h3>
 
         <div class="row"></div>
 
-        <form action="${pageContext.request.contextPath}/ms/login.do">
+        <form action="${pageContext.request.contextPath}/ms/login.do" method="post">
             <div class="row">
-                <input class="col-sm-8 col-sm-offset-2" name="name" type="text" placeholder="用户名">
+                <input class="col-xs-8 col-xs-offset-2" name="name" type="text" placeholder="用户名">
             </div>
 
             <div class="row">
-                <input class="col-sm-8 col-sm-offset-2" type="password" name="passwd" placeholder="密码">
+                <input class="col-xs-8 col-xs-offset-2" type="password" name="passwd" placeholder="密码">
             </div>
             <div class="row">
-                <button class="btn btn-success col-sm-4 col-sm-offset-4" type="submit">登录</button>
+                <button class="btn btn-success col-xs-4 col-xs-offset-4" type="submit">登录</button>
             </div>
 
         </form>

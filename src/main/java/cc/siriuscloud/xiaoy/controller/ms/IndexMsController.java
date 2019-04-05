@@ -23,7 +23,7 @@ public class IndexMsController {
     @Resource
     private StaffService staffService;
 
-    @RequestMapping("loginUI")
+    @RequestMapping("/loginUI")
     public String loginUI(){
 
 
@@ -32,7 +32,7 @@ public class IndexMsController {
 
 
     @ResponseBody
-    @RequestMapping("login")
+    @RequestMapping("/login")
     public String login(Staff staff,HttpSession session){
 
         Staff loginStaff=staffService.login(staff);
@@ -51,7 +51,7 @@ public class IndexMsController {
     }
 
     @ResponseBody
-    @RequestMapping("relogin")
+    @RequestMapping("/relogin")
     public String relogin(HttpSession session){
 
         session.setAttribute(TAG_MS_LOGIN,null);

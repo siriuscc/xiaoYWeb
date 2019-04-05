@@ -7,7 +7,7 @@
           href="${pageContext.request.contextPath}/public/assets/img/apple-icon.png"/>
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/public/assets/img/favicon.png"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>Material Dashboard by Creative Tim</title>
+    <title>管理员信息</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'/>
     <meta name="viewport" content="width=device-width"/>
     <!-- Bootstrap core CSS     -->
@@ -80,7 +80,6 @@
                             </div>
                         </div>
                     </div>
-
 
 
                     <div class="col-md-4">

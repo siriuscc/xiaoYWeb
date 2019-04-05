@@ -59,7 +59,7 @@
         <tomcat.config.username>sirius</tomcat.config.username>
         <tomcat.config.password>siriuscc</tomcat.config.password>
         <tomcat.config.port>8080</tomcat.config.port>
-        <tomcat.config.path>/</tomcat.config.path>
+        <tomcat.config.path>/xiaoY</tomcat.config.path>
     </properties>
 
     <dependencies>

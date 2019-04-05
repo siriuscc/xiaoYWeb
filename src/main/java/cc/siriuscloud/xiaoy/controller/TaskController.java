@@ -35,9 +35,8 @@ public class TaskController {
     @RequestMapping("/addTask")
     public Message<Task> addTask(Task task, String startTime) {
 
-        //这里多了八个小时
-        logger.debug("。。。。。。。。。。。task:"+task);
-        logger.debug("。。。。。。。。。。。。。startTime:"+startTime);
+//        logger.debug("。。。。。。。。。。。task:"+task);
+//        logger.debug("。。。。。。。。。。。。。startTime:"+startTime);
 
 
         //插入task
@@ -49,7 +48,6 @@ public class TaskController {
 
             msg.setStatus(Message.STATUS_ERROR);
         }
-
 
         return msg;
     }
@@ -130,7 +128,6 @@ public class TaskController {
 
         msg.setData(tasks);
 
-        //数据库的时间是正确的，那么回来后会导致数据是错的？打印一下看看
         logger.debug("...............tasks:"+tasks);
 
         return msg;

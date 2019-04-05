@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * 升级
  */
 @Controller
-@RequestMapping("ms/upgrade")
+@RequestMapping("/ms/upgrade")
 public class UpgradeMsController {
 
 
 
-    @RequestMapping("upgrade")
+    @RequestMapping("/up")
     public String upgrade(){
 
         return "ms/upgrade/upgrade";

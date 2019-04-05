@@ -50,7 +50,7 @@
                 </a>
             </li>
             <li class="active-pro">
-                <a href="${pageContext.request.contextPath}/ms/upgrade/upgrade.do">
+                <a href="${pageContext.request.contextPath}/ms/upgrade/up.do">
                     <i class="material-icons">unarchive</i>
                     <p>购买高级功能</p>
                 </a>

@@ -26,7 +26,7 @@ public class UserMsController {
     TaskService taskService;
 
 
-    @RequestMapping("userlist")
+    @RequestMapping("/userlist")
     public String userlist(ModelMap model,Integer pageNum){
 
 
@@ -54,7 +54,7 @@ public class UserMsController {
 
 
     @ResponseBody
-    @RequestMapping("removeUser")
+    @RequestMapping("/removeUser")
     public String removeUser(int userId){
 
         int i = userService.removeUserById(userId);
@@ -63,7 +63,7 @@ public class UserMsController {
     }
 
 
-    @RequestMapping("tasklist")
+    @RequestMapping("/tasklist")
     public String taskList(ModelMap map,Integer userId,Integer pageNum){
 
         //构造分页容器
@@ -88,7 +88,7 @@ public class UserMsController {
 
 
     @ResponseBody
-    @RequestMapping("removeTask")
+    @RequestMapping("/removeTask")
     public String removeTask(int taskId){
 
         int i = taskService.removeTaskById(taskId);

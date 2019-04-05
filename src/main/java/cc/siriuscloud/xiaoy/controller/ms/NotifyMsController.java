@@ -15,7 +15,7 @@ import java.io.*;
 import java.util.LinkedList;
 
 @Controller
-@RequestMapping("ms/notify")
+@RequestMapping("/ms/notify")
 public class NotifyMsController {
 
 
@@ -23,7 +23,7 @@ public class NotifyMsController {
 
 
 
-    @RequestMapping("notifications")
+    @RequestMapping("/notifications")
     public String notifications(ModelMap map){
 
 
@@ -37,7 +37,7 @@ public class NotifyMsController {
 
 
     @ResponseBody
-    @RequestMapping("getNotify")
+    @RequestMapping("/getNotify")
     public void getNotify(HttpServletRequest request,HttpServletResponse response) throws IOException {
 
         Logger logger=Logger.getLogger(this.getClass());
@@ -76,7 +76,7 @@ public class NotifyMsController {
 
     }
 
-    @RequestMapping("exception")
+    @RequestMapping("/exception")
     public String exception() throws NullPointerException {
 
         throw new NullPointerException();
