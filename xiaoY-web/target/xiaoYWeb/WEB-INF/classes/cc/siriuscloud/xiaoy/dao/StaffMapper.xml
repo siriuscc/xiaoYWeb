@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cc.siriuscloud.xiaoy.dao.StaffMapper">
+    <resultMap id="BaseResultMap" type="cc.siriuscloud.xiaoy.domain.Staff">
+        <id column="staff_id" jdbcType="INTEGER" property="staffId"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="passwd" jdbcType="VARCHAR" property="passwd"/>
+        <result column="role_id" jdbcType="INTEGER" property="roleId"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    staff_id, name, passwd, role_id, email
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from xy_staff
+        where staff_id = #{staffId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from xy_staff
+    where staff_id = #{staffId,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="cc.siriuscloud.xiaoy.domain.Staff">
+    insert into xy_staff (staff_id, name, passwd, 
+      role_id, email)
+    values (#{staffId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{passwd,jdbcType=VARCHAR}, 
+      #{roleId,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="cc.siriuscloud.xiaoy.domain.Staff">
+        insert into xy_staff
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="staffId != null">
+                staff_id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="passwd != null">
+                passwd,
+            </if>
+            <if test="roleId != null">
+                role_id,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="staffId != null">
+                #{staffId,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="passwd != null">
+                #{passwd,jdbcType=VARCHAR},
+            </if>
+            <if test="roleId != null">
+                #{roleId,jdbcType=INTEGER},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cc.siriuscloud.xiaoy.domain.Staff">
+        update xy_staff
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="passwd != null">
+                passwd = #{passwd,jdbcType=VARCHAR},
+            </if>
+            <if test="roleId != null">
+                role_id = #{roleId,jdbcType=INTEGER},
+            </if>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where staff_id = #{staffId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cc.siriuscloud.xiaoy.domain.Staff">
+    update xy_staff
+    set name = #{name,jdbcType=VARCHAR},
+      passwd = #{passwd,jdbcType=VARCHAR},
+      role_id = #{roleId,jdbcType=INTEGER},
+      email = #{email,jdbcType=VARCHAR}
+    where staff_id = #{staffId,jdbcType=INTEGER}
+  </update>
+
+
+    <select id="selectByNamePasswd" parameterType="cc.siriuscloud.xiaoy.domain.Staff" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from xy_staff
+        where name = #{name} and passwd =#{passwd}
+    </select>
+
+
+</mapper>

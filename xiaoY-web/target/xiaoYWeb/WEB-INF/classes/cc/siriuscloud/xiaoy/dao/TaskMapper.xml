@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cc.siriuscloud.xiaoy.dao.TaskMapper">
+    <resultMap id="BaseResultMap" type="cc.siriuscloud.xiaoy.domain.Task">
+        <id column="task_id" jdbcType="INTEGER" property="taskId"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="start_time" jdbcType="TIMESTAMP" property="startTime"/>
+        <result column="end_time" jdbcType="TIMESTAMP" property="endTime"/>
+        <result column="delay_min" jdbcType="INTEGER" property="delayMin"/>
+        <result column="img_url" jdbcType="VARCHAR" property="imgUrl"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="content" jdbcType="LONGVARCHAR" property="content"/>
+
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="cc.siriuscloud.xiaoy.domain.Task">
+        <result column="content" jdbcType="LONGVARCHAR" property="content"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        task_id, title, start_time, end_time, delay_min, img_url, user_id,content
+    </sql>
+    <sql id="Blob_Column_List">
+        content
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from xy_task
+        where task_id = #{taskId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from xy_task
+        where task_id = #{taskId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="cc.siriuscloud.xiaoy.domain.Task">
+        insert into xy_task (task_id, title, start_time,
+        end_time, delay_min, img_url,
+        user_id, content)
+        values (null, #{title,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP},
+        #{endTime,jdbcType=TIMESTAMP}, #{delayMin,jdbcType=INTEGER}, #{imgUrl,jdbcType=VARCHAR},
+        #{userId,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="cc.siriuscloud.xiaoy.domain.Task">
+        insert into xy_task
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="taskId != null">
+                task_id,
+            </if>
+            <if test="title != null">
+                title,
+            </if>
+            <if test="startTime != null">
+                start_time,
+            </if>
+            <if test="endTime != null">
+                end_time,
+            </if>
+            <if test="delayMin != null">
+                delay_min,
+            </if>
+            <if test="imgUrl != null">
+                img_url,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="taskId != null">
+                #{taskId,jdbcType=INTEGER},
+            </if>
+            <if test="title != null">
+                #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="startTime != null">
+                #{startTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endTime != null">
+                #{endTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="delayMin != null">
+                #{delayMin,jdbcType=INTEGER},
+            </if>
+            <if test="imgUrl != null">
+                #{imgUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cc.siriuscloud.xiaoy.domain.Task">
+        update xy_task
+        <set>
+            <if test="title != null">
+                title = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="startTime != null">
+                start_time = #{startTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endTime != null">
+                end_time = #{endTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="delayMin != null">
+                delay_min = #{delayMin,jdbcType=INTEGER},
+            </if>
+            <if test="imgUrl != null">
+                img_url = #{imgUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="content != null">
+                content = #{content,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where task_id = #{taskId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="cc.siriuscloud.xiaoy.domain.Task">
+        update xy_task
+        set title = #{title,jdbcType=VARCHAR},
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+        delay_min = #{delayMin,jdbcType=INTEGER},
+        img_url = #{imgUrl,jdbcType=VARCHAR},
+        user_id = #{userId,jdbcType=INTEGER},
+        content = #{content,jdbcType=LONGVARCHAR}
+        where task_id = #{taskId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cc.siriuscloud.xiaoy.domain.Task">
+        update xy_task
+        set title = #{title,jdbcType=VARCHAR},
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+        delay_min = #{delayMin,jdbcType=INTEGER},
+        img_url = #{imgUrl,jdbcType=VARCHAR},
+        user_id = #{userId,jdbcType=INTEGER}
+        where task_id = #{taskId,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectAllTaskByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from xy_task
+        where user_id = #{userId,jdbcType=INTEGER}
+    </select>
+    <select id="selectTodayTaskByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM xy_task WHERE user_id=#{userId} and TO_DAYS(start_time) = TO_DAYS(NOW());
+
+    </select>
+
+    <select id="selectCountByUserId" parameterType="java.lang.Integer" resultType="java.lang.Long">
+        SELECT count(0) FROM xy_task where user_id=#{userId}
+    </select>
+
+
+
+</mapper>
