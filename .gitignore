@@ -1,0 +1,16 @@
+
+
+
+
+# IDE 辅助文件
+**/*.iml
+**/.gradle
+**/.idea
+**/.DS_Store
+
+**/local.properties
+# 数据库配置文件
+**/db.properties
+**/build
+**/captures
+**/.externalNativeBuild
